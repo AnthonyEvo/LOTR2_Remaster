@@ -1,6 +1,9 @@
 package data;
 
 import java.awt.Color;
+import java.util.ArrayDeque;
+import UI.UIMapTest;
+import UI.TileContainer;
 
 public class GameMapConnector {
 	
@@ -11,7 +14,7 @@ public class GameMapConnector {
 	 * */
 	
 	public static void main(String args[]) {
-		new GlobalMap(10, 10);
+		new UIMapTest().uploadContainers(new GlobalMap(10, 10).getMapTiles());
 	}
 	
 	GameMapConnector() {
@@ -35,7 +38,7 @@ class GlobalMap {
 	
 	private void fillMap() {
 		for(int i = 0, j = 0; j < globalMapTileGrid[0].length; i++) {
-			globalMapTileGrid[i][j] = new GlobalMapTile(GlobalMapTileType.field);
+			globalMapTileGrid[i][j] = new GlobalMapTile(GlobalMapTileType.sea);
 			
 			System.out.print(globalMapTileGrid[i][j].getTileTag() + "\t");
 			
@@ -45,6 +48,23 @@ class GlobalMap {
 				System.out.println();
 			}
 		}
+	}
+	
+	public TileContainer[][] getMapTiles() {
+		
+		TileContainer[][] temp = new TileContainer[mapWidth][mapHeight];
+		
+		for(int i = 0, j = 0; j < globalMapTileGrid[0].length; i++) {
+			temp[i][j] = new TileContainer(i,j, globalMapTileGrid[i][j].getTileColor());
+			
+			
+			if(i + 1 == globalMapTileGrid.length) {
+				i = -1;
+				j++;
+			}
+		}
+		
+		return temp;
 	}
 }
 
