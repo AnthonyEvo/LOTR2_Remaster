@@ -8,7 +8,7 @@ public class UIMapTest extends JPanel {
 	JFrame mainWindow;
 	TileContainer[][] mapTiles;
 	
-	float stepSizeWidth, stepSizeHeight;
+	double stepSizeWidth, stepSizeHeight, rawNum, rawMiddle;
 	
 	public UIMapTest() {
 		mainWindow = new JFrame();
@@ -28,14 +28,17 @@ public class UIMapTest extends JPanel {
 	
 	public void drawMap(Graphics G) {
 		try {
-			stepSizeWidth = this.getWidth() / mapTiles.length;
-			stepSizeHeight = this.getHeight() / mapTiles[0].length;
-			
+			stepSizeWidth = this.getWidth() / mapTiles.length/* * Math.sqrt(2)*/;
+			rawMiddle = (this.getWidth() / 2) - (stepSizeWidth / 2);
+			stepSizeHeight = this.getHeight() / rawNum;
+			rawNum = mapTiles.length * 2 - 1;
 			for(int i = 0, j = 0; j < mapTiles[0].length; i++) {
 				
 				G.setColor(mapTiles[i][j].getColor());
-				G.fillOval((int)(1 + stepSizeWidth * i), (int)(1 + stepSizeHeight * j), (int)(stepSizeWidth - 1), (int)(stepSizeHeight - 1));
-				
+				G.fillOval((int)((rawMiddle - stepSizeWidth / 2 * j) + i * stepSizeWidth / 2), (int)((stepSizeHeight * j) + stepSizeHeight * i), (int)(stepSizeWidth - 1), (int)(stepSizeHeight - 1));
+				G.setColor(Color.black);
+				G.drawString(i + "." + j ,(int)((rawMiddle - stepSizeWidth / 2 * j) + i * stepSizeWidth / 2) + 10, (int)((stepSizeHeight * j) + stepSizeHeight * i) + 10);
+				//G.fillOval((int)(1 + stepSizeWidth * i), (int)(1 + stepSizeHeight * j), (int)(stepSizeWidth - 1), (int)(stepSizeHeight - 1));
 				if(i + 1 == mapTiles.length) {
 					i = -1;
 					j++;

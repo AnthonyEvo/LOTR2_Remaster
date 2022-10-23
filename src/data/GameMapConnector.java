@@ -14,7 +14,7 @@ public class GameMapConnector {
 	 * */
 	
 	public static void main(String args[]) {
-		new UIMapTest().uploadContainers(new GlobalMap(10, 10).getMapTiles());
+		new UIMapTest().uploadContainers(new GlobalMap(40, 40).getMapTiles());
 	}
 	
 	GameMapConnector() {
