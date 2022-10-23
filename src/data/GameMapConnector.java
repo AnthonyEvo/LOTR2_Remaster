@@ -14,7 +14,7 @@ public class GameMapConnector {
 	 * */
 	
 	public static void main(String args[]) {
-		new UIMapTest().uploadContainers(new GlobalMap(40, 40).getMapTiles());
+		new UIMapTest().uploadContainers(new GlobalMap(5).getMapTiles());
 	}
 	
 	GameMapConnector() {
@@ -27,9 +27,9 @@ class GlobalMap {
 	
 	GlobalMapTile[][] globalMapTileGrid;
 
-	GlobalMap(int width, int height) {
-		mapWidth = width;
-		mapHeight = height;
+	GlobalMap(int side) {
+		mapWidth = side;
+		mapHeight = side;
 		
 		globalMapTileGrid = new GlobalMapTile[mapWidth][mapHeight];
 		
@@ -38,7 +38,7 @@ class GlobalMap {
 	
 	private void fillMap() {
 		for(int i = 0, j = 0; j < globalMapTileGrid[0].length; i++) {
-			globalMapTileGrid[i][j] = new GlobalMapTile(GlobalMapTileType.sea);
+			globalMapTileGrid[i][j] = new GlobalMapTile(GlobalMapTileType.field);
 			
 			System.out.print(globalMapTileGrid[i][j].getTileTag() + "\t");
 			
