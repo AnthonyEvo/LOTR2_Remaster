@@ -1,7 +1,6 @@
 package data;
 
 import java.awt.Color;
-import java.util.ArrayDeque;
 import UI.UIMapTest;
 import UI.TileContainer;
 
@@ -14,7 +13,7 @@ public class GameMapConnector {
 	 * */
 	
 	public static void main(String args[]) {
-		new UIMapTest().uploadContainers(new GlobalMap(5).getMapTiles());
+		new UIMapTest().uploadContainers(new GlobalMap(8).getMapTiles());
 	}
 	
 	GameMapConnector() {
@@ -38,7 +37,7 @@ class GlobalMap {
 	
 	private void fillMap() {
 		for(int i = 0, j = 0; j < globalMapTileGrid[0].length; i++) {
-			globalMapTileGrid[i][j] = new GlobalMapTile(GlobalMapTileType.field);
+			globalMapTileGrid[i][j] = new GlobalMapTile(GlobalMapTileType.forest);
 			
 			System.out.print(globalMapTileGrid[i][j].getTileTag() + "\t");
 			
@@ -92,7 +91,7 @@ class LocalMapTile {
 	
 }
 
-class Building implements Productionable{
+class Building {
 	
 }
 
@@ -104,21 +103,21 @@ enum GlobalMapTileType{
 	
 	public Color getColor() {
 		switch(this) {
-		case forest: return Color.green;
-		case mountain: return Color.darkGray;
-		case field: return Color.lightGray;
-		case sea: return Color.cyan;
-		default: return Color.white;
+			case forest: return Color.green;
+			case mountain: return Color.darkGray;
+			case field: return Color.lightGray;
+			case sea: return Color.cyan;
+			default: return Color.white;
 		}
 	}
 	
 	public String getTag() {
 		switch(this) {
-		case forest: return "[FRT]";
-		case mountain: return "[MTN]";
-		case field: return "[FLD]";
-		case sea: return "[SEA]";
-		default: return "[EPT]";
+			case forest: return "[FRT]";
+			case mountain: return "[MTN]";
+			case field: return "[FLD]";
+			case sea: return "[SEA]";
+			default: return "[EPT]";
 		}
 	}
 }
