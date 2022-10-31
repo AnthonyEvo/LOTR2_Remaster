@@ -10,6 +10,11 @@ public class MapTestKeyListener implements Runnable{
 	Thread keyInputListener;
 	public Listener listener;
 	
+	public MapTestKeyListener() {
+		keyInputListener = new Thread(this, "Key Input Listener");
+		keyInputListener.start();
+	}
+	
 	public void run() {
 		listener = new Listener();
 	}
@@ -18,24 +23,37 @@ public class MapTestKeyListener implements Runnable{
 		return listener;
 	}
 	
+	public boolean isShiftPressed() {
+		return listener.getShiftState();
+	}
+	
 	class Listener implements KeyListener {
-
+		
+		boolean isShiftPressed = false;
+		
+		public boolean getShiftState() {
+			return isShiftPressed;
+		}
+		
 		@Override
 		public void keyTyped(KeyEvent e) {
 			// TODO Автоматически созданная заглушка метода
+			//System.out.println(e.getKeyCode());
 			
 		}
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			// TODO Автоматически созданная заглушка метода
-			
+			if(e.getKeyCode() == 16) {
+				isShiftPressed = true;
+			}
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			// TODO Автоматически созданная заглушка метода
-			
+			if(e.getKeyCode() == 16) {
+				isShiftPressed = false;
+			}
 		}
 		
 	}

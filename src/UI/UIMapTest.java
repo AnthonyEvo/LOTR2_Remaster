@@ -15,15 +15,18 @@ public class UIMapTest extends JPanel implements Runnable{
 	double viewportAngle = 45;
 	
 	
-	MapTestMouseListener mapTestListener = new MapTestMouseListener();
+	MapTestMouseListener mapTestMouseListener = new MapTestMouseListener();
+	MapTestKeyListener mapTestKeyListener = new MapTestKeyListener();
 	
 	public UIMapTest() {
 		mainWindow = new JFrame();
 		mainWindow.setSize(500, 500);
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		this.addMouseListener(mapTestListener.attachListener());
-		this.addMouseMotionListener(mapTestListener.attachListener());
+		this.addMouseListener(mapTestMouseListener.attachListener());
+		this.addMouseMotionListener(mapTestMouseListener.attachListener());
+		mainWindow.addKeyListener(mapTestKeyListener.attachListener());
+		
 		mainWindow.add(this);
 		mainWindow.setVisible(true);
 		
@@ -64,7 +67,7 @@ public class UIMapTest extends JPanel implements Runnable{
 	}
 	
 	private void getAngleChange() {
-		int dragDistance = mapTestListener.getDragVerticalDistance();
+		int dragDistance = mapTestMouseListener.getDragVerticalDistance();
 		if(viewportAngle + dragDistance * 90 / this.getHeight() >= 0) {
 			if(viewportAngle + dragDistance * 90 / this.getHeight() <= 90) {
 				viewportAngle += dragDistance * 90 / this.getHeight() * 0.25;
@@ -82,7 +85,8 @@ public class UIMapTest extends JPanel implements Runnable{
 		try {
 			while(true) {
 				Thread.sleep(16);
-				if(mapTestListener.isMapDraged()) getAngleChange();
+				if(mapTestMouseListener.isMapDraged() && mapTestKeyListener.isShiftPressed()) getAngleChange();
+			
 			}
 		} catch (InterruptedException Ex) { }
 	}
