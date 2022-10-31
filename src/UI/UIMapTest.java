@@ -14,6 +14,8 @@ public class UIMapTest extends JPanel implements Runnable{
 	double stepSizeWidth, stepSizeHeight, rawNum, rawMiddle;
 	double viewportAngle = 45, tempViewportAngle = viewportAngle;
 	
+	int horizontalMapShift = 0, verticalMapShift = 0;
+	
 	
 	MapTestMouseListener mapTestMouseListener = new MapTestMouseListener();
 	MapTestKeyListener mapTestKeyListener = new MapTestKeyListener();
@@ -50,7 +52,7 @@ public class UIMapTest extends JPanel implements Runnable{
 			for(int i = 0, j = 0; j < mapTiles[0].length; i++) {
 				
 				G.setColor(mapTiles[i][j].getColor());
-				G.fillOval((int)((rawMiddle - stepSizeWidth / 2 * j) + i * stepSizeWidth / 2), (int)((stepSizeHeight * j) + stepSizeHeight * i), (int)(stepSizeWidth - 1), (int)(stepSizeHeight - 1));
+				G.fillOval((int)((rawMiddle - stepSizeWidth / 2 * j) + i * stepSizeWidth / 2) + horizontalMapShift, (int)((stepSizeHeight * j) + stepSizeHeight * i) + verticalMapShift, (int)(stepSizeWidth - 1), (int)(stepSizeHeight - 1));
 				G.setColor(Color.black);
 				G.drawString((i + 1) + "." + (j + 1) ,(int)((rawMiddle - stepSizeWidth / 2 * j) + i * stepSizeWidth / 2) + 10, (int)((stepSizeHeight * j) + stepSizeHeight * i) + 10);
 				if(i + 1 == mapTiles.length) {
