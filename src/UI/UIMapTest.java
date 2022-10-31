@@ -15,7 +15,7 @@ public class UIMapTest extends JPanel implements Runnable{
 	double viewportAngle = 45;
 	
 	
-	MapTestListener mapTestListener = new MapTestListener();
+	MapTestMouseListener mapTestListener = new MapTestMouseListener();
 	
 	public UIMapTest() {
 		mainWindow = new JFrame();

@@ -4,12 +4,12 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.event.MouseInputListener;
 
-public class MapTestListener implements Runnable{
+public class MapTestMouseListener implements Runnable{
 	
 	Thread mouseInputListener;
 	public Listener listener;
 	
-	public MapTestListener() {
+	public MapTestMouseListener() {
 		mouseInputListener = new Thread(this, "Mouse Input Listener");
 		mouseInputListener.start();
 	}
@@ -30,7 +30,7 @@ public class MapTestListener implements Runnable{
 		return listener.isMapDraged();
 	}
 	
-	class Listener implements MouseInputListener {
+class Listener implements MouseInputListener {
 		
 		boolean mapDraged = false;
 		
@@ -97,3 +97,4 @@ public class MapTestListener implements Runnable{
 		}
 	}
 }
+
