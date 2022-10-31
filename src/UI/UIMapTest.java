@@ -12,7 +12,7 @@ public class UIMapTest extends JPanel implements Runnable{
 	Thread uiMapTest = new Thread (this, "UI Map Test");
 	
 	double stepSizeWidth, stepSizeHeight, rawNum, rawMiddle;
-	double viewportAngle = 45;
+	double viewportAngle = 45, tempViewportAngle = viewportAngle;
 	
 	
 	MapTestMouseListener mapTestMouseListener = new MapTestMouseListener();
@@ -43,7 +43,7 @@ public class UIMapTest extends JPanel implements Runnable{
 		try {
 			rawMiddle = (this.getWidth() / 2) - (stepSizeWidth / 2);
 			stepSizeWidth = this.getWidth() / mapTiles[0].length; 
-			stepSizeHeight = stepSizeWidth * Math.sin(viewportAngle / 180 * Math.PI) / 2;
+			stepSizeHeight = stepSizeWidth * Math.sin(tempViewportAngle / 180 * Math.PI) / 2;
 			
 			rawNum = mapTiles.length * 2 - 1;
 			
@@ -66,27 +66,36 @@ public class UIMapTest extends JPanel implements Runnable{
 		this.repaint();
 	}
 	
-	private void getAngleChange() {
-		int dragDistance = mapTestMouseListener.getDragVerticalDistance();
-		if(viewportAngle + dragDistance * 90 / this.getHeight() >= 0) {
-			if(viewportAngle + dragDistance * 90 / this.getHeight() <= 90) {
-				viewportAngle += dragDistance * 90 / this.getHeight() * 0.25;
+	private double setViewportAngle() {
+		double tempDragDistance = mapTestMouseListener.getDragVerticalDistance(); 
+		
+		tempViewportAngle = viewportAngle;
+		
+		if(viewportAngle + tempDragDistance * 90 / this.getHeight() >= 0) {
+			if(viewportAngle + tempDragDistance * 90 / this.getHeight() <= 90) {
+				tempViewportAngle += tempDragDistance * 90 / this.getHeight() /*0.25*/;
 			}
-			else { viewportAngle = 90;} 
+			else { tempViewportAngle = 90;} 
 		} 
 		else {
-			viewportAngle = 0;
+			tempViewportAngle = 0;
 		}
 		
 		this.repaint();
+		
+
+		
+		return tempViewportAngle;
 	}
 	
 	public void run() {
 		try {
 			while(true) {
 				Thread.sleep(16);
-				if(mapTestMouseListener.isMapDraged() && mapTestKeyListener.isShiftPressed()) getAngleChange();
-			
+				if(mapTestMouseListener.isMapDraged() && mapTestKeyListener.isShiftPressed()) setViewportAngle();
+				if(!mapTestMouseListener.isM1Pressed()) {
+					viewportAngle = tempViewportAngle;
+				}
 			}
 		} catch (InterruptedException Ex) { }
 	}

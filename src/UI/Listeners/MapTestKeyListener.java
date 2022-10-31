@@ -55,7 +55,5 @@ public class MapTestKeyListener implements Runnable{
 				isShiftPressed = false;
 			}
 		}
-		
 	}
-
 }
