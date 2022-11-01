@@ -27,6 +27,7 @@ public class UIMapTest extends JPanel implements Runnable{
 		
 		this.addMouseListener(mapTestMouseListener.attachListener());
 		this.addMouseMotionListener(mapTestMouseListener.attachListener());
+		this.addMouseWheelListener(mapTestMouseListener.attachListener());
 		mainWindow.addKeyListener(mapTestKeyListener.attachListener());
 		
 		mainWindow.add(this);
@@ -44,7 +45,7 @@ public class UIMapTest extends JPanel implements Runnable{
 	public void drawMap(Graphics G) {
 		try {
 			rawMiddle = (this.getWidth() / 2) - (stepSizeWidth / 2);
-			stepSizeWidth = this.getWidth() / mapTiles[0].length; 
+			stepSizeWidth = (this.getWidth() / mapTiles[0].length) * mapTestMouseListener.getScaleModifier(); 
 			stepSizeHeight = stepSizeWidth * Math.sin(tempViewportAngle / 180 * Math.PI) / 2;
 			
 			rawNum = mapTiles.length * 2 - 1;
@@ -94,10 +95,9 @@ public class UIMapTest extends JPanel implements Runnable{
 		try {
 			while(true) {
 				Thread.sleep(16);
-				if(mapTestMouseListener.isMapDraged() && mapTestKeyListener.isShiftPressed()) setViewportAngle();
-				if(!mapTestMouseListener.isM1Pressed()) {
-					viewportAngle = tempViewportAngle;
-				}
+				if(mapTestMouseListener.isMapDraged() && mapTestKeyListener.isShiftPressed()) { setViewportAngle(); }
+				if(!mapTestMouseListener.isM1Pressed()) { viewportAngle = tempViewportAngle; }
+				if(mapTestMouseListener.isScaleChanged()) { setViewportAngle(); }
 			}
 		} catch (InterruptedException Ex) { }
 	}

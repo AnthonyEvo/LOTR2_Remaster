@@ -1,8 +1,10 @@
 package UI.Listeners;
 
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 import javax.swing.event.MouseInputListener;
+import java.awt.event.MouseWheelListener;
 
 public class MapTestMouseListener implements Runnable{
 	
@@ -34,12 +36,22 @@ public class MapTestMouseListener implements Runnable{
 		return listener.getM1State();
 	}
 	
-class Listener implements MouseInputListener {
+	public double getScaleModifier() {
+		return listener.getScaleModifier();
+	}
+	
+	public boolean isScaleChanged() {
+		return listener.getScaleState();
+	}
+	
+	class Listener implements MouseInputListener, MouseWheelListener {
 		
-		boolean mapDraged = false, isM1Pressed = false;
+		boolean mapDraged = false, isM1Pressed = false, isScaleChanged = false;
 		
-		int verticalDraggDistance = 0;
-		int hitY = 0;
+		private int verticalDraggDistance = 0;
+		private int hitY = 0;
+		
+		private double scaleModifier = 1;
 		
 		public boolean getM1State() {
 			return isM1Pressed;
@@ -49,6 +61,10 @@ class Listener implements MouseInputListener {
 			return mapDraged;
 		}
 		
+		public boolean getScaleState() {
+			return isScaleChanged;
+		}
+		
 		public int getDragVerticalDistance() {
 			mapDraged = false;
 			return verticalDraggDistance;
@@ -56,6 +72,11 @@ class Listener implements MouseInputListener {
 		
 		public int getHitHighness() {
 			return hitY;
+		}
+		
+		public double getScaleModifier() {
+			isScaleChanged = false;
+			return scaleModifier;
 		}
 		
 		@Override
@@ -79,6 +100,7 @@ class Listener implements MouseInputListener {
 			System.out.println("M1 Released");
 			if(e.getButton() == MouseEvent.BUTTON1) {
 				isM1Pressed = false;
+				
 			}
 		}
 
@@ -107,6 +129,20 @@ class Listener implements MouseInputListener {
 		public void mouseMoved(MouseEvent e) {
 			// TODO Auto-generated method stub
 			
+		}
+
+		@Override
+		public void mouseWheelMoved(MouseWheelEvent e) {
+			
+			if(e.getWheelRotation() > 0) {
+				scaleModifier /= e.getScrollAmount() / 3 * 1.1;
+			}
+			else {
+				scaleModifier *= e.getScrollAmount() / 3 * 1.1;
+			}
+			System.out.println(scaleModifier);
+			
+			isScaleChanged = true;
 		}
 	}
 }
