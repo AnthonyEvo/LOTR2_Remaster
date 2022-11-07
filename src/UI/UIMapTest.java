@@ -14,7 +14,8 @@ public class UIMapTest extends JPanel implements Runnable{
 	double stepSizeWidth, stepSizeHeight, rawNum, rawMiddle;
 	double viewportAngle = 45, tempViewportAngle = viewportAngle;
 	
-	int horizontalMapShift = 0, verticalMapShift = 0;
+	int horizontalMapShift = 0, verticalMapShift = 0, 
+			tempHorizontalMapShift = horizontalMapShift, tempVerticalMapShift = verticalMapShift;
 	
 	
 	MapTestMouseListener mapTestMouseListener = new MapTestMouseListener();
@@ -44,18 +45,23 @@ public class UIMapTest extends JPanel implements Runnable{
 	
 	public void drawMap(Graphics G) {
 		try {
-			rawMiddle = (this.getWidth() / 2) - (stepSizeWidth / 2);
 			stepSizeWidth = (this.getWidth() / mapTiles[0].length) * mapTestMouseListener.getScaleModifier(); 
 			stepSizeHeight = stepSizeWidth * Math.sin(tempViewportAngle / 180 * Math.PI) / 2;
+			rawMiddle = (this.getWidth() / 2) - (stepSizeWidth / 2);
 			
 			rawNum = mapTiles.length * 2 - 1;
 			
 			for(int i = 0, j = 0; j < mapTiles[0].length; i++) {
 				
 				G.setColor(mapTiles[i][j].getColor());
-				G.fillOval((int)((rawMiddle - stepSizeWidth / 2 * j) + i * stepSizeWidth / 2) + horizontalMapShift, (int)((stepSizeHeight * j) + stepSizeHeight * i) + verticalMapShift, (int)(stepSizeWidth - 1), (int)(stepSizeHeight - 1));
+				G.fillOval((int)((rawMiddle - stepSizeWidth / 2 * j) + i * stepSizeWidth / 2) + tempHorizontalMapShift,
+						(int)((stepSizeHeight * j) + stepSizeHeight * i) + tempVerticalMapShift, 
+						(int)(stepSizeWidth - 1),
+						(int)(stepSizeHeight - 1));
 				G.setColor(Color.black);
-				G.drawString((i + 1) + "." + (j + 1) ,(int)((rawMiddle - stepSizeWidth / 2 * j) + i * stepSizeWidth / 2) + 10, (int)((stepSizeHeight * j) + stepSizeHeight * i) + 10);
+				G.drawString((i + 1) + "." + (j + 1) ,
+						(int)((rawMiddle - stepSizeWidth / 2 * j) + i * stepSizeWidth / 2) + 10 + tempHorizontalMapShift, 
+						(int)((stepSizeHeight * j) + stepSizeHeight * i) + 10 + tempVerticalMapShift);
 				if(i + 1 == mapTiles.length) {
 					i = -1;
 					j++;
@@ -70,7 +76,7 @@ public class UIMapTest extends JPanel implements Runnable{
 	}
 	
 	private double setViewportAngle() {
-		double tempDragDistance = mapTestMouseListener.getDragVerticalDistance(); 
+		double tempDragDistance = mapTestMouseListener.listener.getDragVerticalDistance(true); 
 		
 		tempViewportAngle = viewportAngle;
 		
@@ -91,13 +97,25 @@ public class UIMapTest extends JPanel implements Runnable{
 		return tempViewportAngle;
 	}
 	
+	private void setFocusPosition() {
+		tempHorizontalMapShift = horizontalMapShift + mapTestMouseListener.listener.getDragHorizontalDistance(false);
+		tempVerticalMapShift = verticalMapShift + mapTestMouseListener.listener.getDragVerticalDistance(false);
+		
+		this.repaint();
+	}
+	
 	public void run() {
 		try {
 			while(true) {
 				Thread.sleep(16);
 				if(mapTestMouseListener.isMapDraged() && mapTestKeyListener.isShiftPressed()) { setViewportAngle(); }
-				if(!mapTestMouseListener.isM1Pressed()) { viewportAngle = tempViewportAngle; }
-				if(mapTestMouseListener.isScaleChanged()) { setViewportAngle(); }
+				if(mapTestMouseListener.isMapDraged() && !mapTestKeyListener.isShiftPressed()) setFocusPosition();
+				if(mapTestMouseListener.isScaleChanged()) { /*setViewportAngle()*/this.repaint(); }
+				if(!mapTestMouseListener.isM1Pressed()) { 
+					viewportAngle = tempViewportAngle;
+					horizontalMapShift = tempHorizontalMapShift;
+					verticalMapShift = tempVerticalMapShift;
+				}
 			}
 		} catch (InterruptedException Ex) { }
 	}

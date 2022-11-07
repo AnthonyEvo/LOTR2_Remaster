@@ -24,10 +24,10 @@ public class MapTestMouseListener implements Runnable{
 		listener = new Listener();
 	}
 	
-	public int getDragVerticalDistance() {
+/*	public int getDragVerticalDistance() {
 		return listener.getDragVerticalDistance();
 	}
-	
+*/	
 	public boolean isMapDraged() {
 		return listener.isMapDraged();
 	}
@@ -44,12 +44,12 @@ public class MapTestMouseListener implements Runnable{
 		return listener.getScaleState();
 	}
 	
-	class Listener implements MouseInputListener, MouseWheelListener {
+	public class Listener implements MouseInputListener, MouseWheelListener {
 		
 		boolean mapDraged = false, isM1Pressed = false, isScaleChanged = false;
 		
-		private int verticalDraggDistance = 0;
-		private int hitY = 0;
+		private int verticalDraggDistance = 0, horizontalDraggDistance = 0;
+		private int hitY = 0, hitX = 0;
 		
 		private double scaleModifier = 1;
 		
@@ -65,13 +65,28 @@ public class MapTestMouseListener implements Runnable{
 			return isScaleChanged;
 		}
 		
-		public int getDragVerticalDistance() {
+		public int getDragVerticalDistance(boolean dropHorizontal) {
+			int temp = verticalDraggDistance;
+			if(dropHorizontal) horizontalDraggDistance = 0;
+			verticalDraggDistance = 0;
 			mapDraged = false;
-			return verticalDraggDistance;
+			return temp;
+		}
+		
+		public int getDragHorizontalDistance(boolean dropVertical) {
+			int temp = horizontalDraggDistance;
+			horizontalDraggDistance = 0;
+			if(dropVertical) verticalDraggDistance = 0;
+			mapDraged = false;
+			return temp;
 		}
 		
 		public int getHitHighness() {
 			return hitY;
+		}
+		
+		public int getHitWidthness() {
+			return hitX;
 		}
 		
 		public double getScaleModifier() {
@@ -88,6 +103,7 @@ public class MapTestMouseListener implements Runnable{
 		@Override
 		public void mousePressed(MouseEvent e) {
 			System.out.println("M1 Pressed");
+			hitX = e.getPoint().x;
 			hitY = e.getPoint().y;
 			if(e.getButton() == MouseEvent.BUTTON1) {
 				isM1Pressed = true;
@@ -119,9 +135,9 @@ public class MapTestMouseListener implements Runnable{
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			verticalDraggDistance = (e.getPoint().y - hitY);
+			horizontalDraggDistance = (e.getPoint().x - hitX);
 			mapDraged = true;
 			System.out.println("y = " + verticalDraggDistance);
-			// TODO Auto-generated method stub
 			
 		}
 
