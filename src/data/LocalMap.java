@@ -1,5 +1,5 @@
 package data;
 
-class LocalMap {
+public class LocalMap {
 	
 }

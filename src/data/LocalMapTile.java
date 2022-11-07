@@ -1,5 +1,5 @@
 package data;
 
-class LocalMapTile {
+public class LocalMapTile {
 	
 }

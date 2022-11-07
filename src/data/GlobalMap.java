@@ -2,7 +2,7 @@ package data;
 
 import UI.TileContainer;
 
-class GlobalMap {
+public class GlobalMap {
 	final int mapWidth, mapHeight;
 	
 	GlobalMapTile[][] globalMapTileGrid;

@@ -2,7 +2,7 @@ package data;
 
 import java.awt.Color;
 
-class GlobalMapTile {
+public class GlobalMapTile {
 	GlobalMapTileType tileType;
 	
 	GlobalMapTile (GlobalMapTileType tileType) {
