@@ -3,25 +3,29 @@ package UI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics;
-import UI.Listeners.*;
 
-public class UIMapTest extends JPanel implements Runnable{
+import UI.Listeners.*;
+import edu.Lab1Drawer;
+
+public class UIMapRenderTest extends JPanel implements Runnable{
 	JFrame mainWindow;
 	TileContainer[][] mapTiles;
+	Lab1Drawer lab1 = new Lab1Drawer();
 	
 	Thread uiMapTest = new Thread (this, "UI Map Test");
 	
 	double stepSizeWidth, stepSizeHeight, rawNum, rawMiddle;
 	double viewportAngle = 45, tempViewportAngle = viewportAngle;
 	
-	int horizontalMapShift = 0, verticalMapShift = 0, 
-			tempHorizontalMapShift = horizontalMapShift, tempVerticalMapShift = verticalMapShift;
+	int horizontalMapShift = 0, tempHorizontalMapShift = horizontalMapShift;
+	int	verticalMapShift = 0, tempVerticalMapShift = verticalMapShift;
 	
+	boolean educationMode = false;
 	
 	MapTestMouseListener mapTestMouseListener = new MapTestMouseListener();
 	MapTestKeyListener mapTestKeyListener = new MapTestKeyListener();
 	
-	public UIMapTest() {
+	public UIMapRenderTest() {
 		mainWindow = new JFrame();
 		mainWindow.setSize(500, 500);
 		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,7 +44,8 @@ public class UIMapTest extends JPanel implements Runnable{
 	@Override
 	public void paintComponent(Graphics G) {
 		super.paintComponent(G);
-		drawMap(G);
+		if(educationMode) {}
+		else { drawMap(G); }
 	}
 	
 	public void drawMap(Graphics G) {
@@ -86,14 +91,9 @@ public class UIMapTest extends JPanel implements Runnable{
 			}
 			else { tempViewportAngle = 90;} 
 		} 
-		else {
-			tempViewportAngle = 0;
-		}
+		else { tempViewportAngle = 0; }
 		
 		this.repaint();
-		
-
-		
 		return tempViewportAngle;
 	}
 	

@@ -1,11 +1,11 @@
 package data;
 
-import UI.UIMapTest;
+import UI.UIMapRenderTest;
 
 public class GameMapConnector {
 	
 	public static void main(String args[]) {
-		new UIMapTest().uploadContainers(new GlobalMap(8).getMapTiles());
+		new UIMapRenderTest().uploadContainers(new GlobalMap(8).getMapTiles());
 	}
 	
 	GameMapConnector() {
