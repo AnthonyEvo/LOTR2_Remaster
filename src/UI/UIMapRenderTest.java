@@ -5,23 +5,23 @@ import java.awt.*;
 import java.awt.Graphics;
 
 import UI.Listeners.*;
+import data.spaceUnits.Shape2D;
+import data.spaceUnits.Vector2;
+import data.spaceUnits.Vector2D;
 import edu.Lab1Drawer;
 
 public class UIMapRenderTest extends JPanel implements Runnable{
 	JFrame mainWindow;
 	TileContainer[][] mapTiles;
-	Lab1Drawer lab1 = new Lab1Drawer();
 	
 	Thread uiMapTest = new Thread (this, "UI Map Test");
 	
 	double stepSizeWidth, stepSizeHeight, rawNum, rawMiddle;
-	double viewportAngle = 45, tempViewportAngle = viewportAngle;
+	protected double viewportAngle = 45, tempViewportAngle = viewportAngle;
 	
-	int horizontalMapShift = 0, tempHorizontalMapShift = horizontalMapShift;
-	int	verticalMapShift = 0, tempVerticalMapShift = verticalMapShift;
-	
-	boolean educationMode = false;
-	
+	protected int horizontalMapShift = 0, tempHorizontalMapShift = horizontalMapShift;
+	protected int verticalMapShift = 0, tempVerticalMapShift = verticalMapShift;
+		
 	MapTestMouseListener mapTestMouseListener = new MapTestMouseListener();
 	MapTestKeyListener mapTestKeyListener = new MapTestKeyListener();
 	
@@ -38,14 +38,15 @@ public class UIMapRenderTest extends JPanel implements Runnable{
 		mainWindow.add(this);
 		mainWindow.setVisible(true);
 		
+		
+		
 		uiMapTest.start();
 	}
 	
 	@Override
 	public void paintComponent(Graphics G) {
 		super.paintComponent(G);
-		if(educationMode) {}
-		else { drawMap(G); }
+//		drawMap(G);
 	}
 	
 	public void drawMap(Graphics G) {
@@ -80,7 +81,7 @@ public class UIMapRenderTest extends JPanel implements Runnable{
 		this.repaint();
 	}
 	
-	private double setViewportAngle() {
+	protected double setViewportAngle() {
 		double tempDragDistance = mapTestMouseListener.listener.getDragVerticalDistance(true); 
 		
 		tempViewportAngle = viewportAngle;
@@ -97,7 +98,7 @@ public class UIMapRenderTest extends JPanel implements Runnable{
 		return tempViewportAngle;
 	}
 	
-	private void setFocusPosition() {
+	protected void setFocusPosition() {
 		tempHorizontalMapShift = horizontalMapShift + mapTestMouseListener.listener.getDragHorizontalDistance(false);
 		tempVerticalMapShift = verticalMapShift + mapTestMouseListener.listener.getDragVerticalDistance(false);
 		
