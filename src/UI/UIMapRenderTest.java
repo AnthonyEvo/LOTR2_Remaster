@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.Graphics;
 
 import UI.Listeners.*;
-import data.spaceUnits.Shape2D;
+import data.shapes.Shape2D;
 import data.spaceUnits.Vector2;
 import data.spaceUnits.Vector2D;
 import edu.Lab1Drawer;
@@ -17,13 +17,14 @@ public class UIMapRenderTest extends JPanel implements Runnable{
 	Thread uiMapTest = new Thread (this, "UI Map Test");
 	
 	double stepSizeWidth, stepSizeHeight, rawNum, rawMiddle;
-	protected double viewportAngle = 45, tempViewportAngle = viewportAngle;
+	protected double viewportAngle = 0, tempViewportAngle = viewportAngle;
+	protected double minViewportAngle = 0, maxViewportAngle = 90;
 	
 	protected int horizontalMapShift = 0, tempHorizontalMapShift = horizontalMapShift;
 	protected int verticalMapShift = 0, tempVerticalMapShift = verticalMapShift;
-		
-	MapTestMouseListener mapTestMouseListener = new MapTestMouseListener();
-	MapTestKeyListener mapTestKeyListener = new MapTestKeyListener();
+	
+	protected MapTestMouseListener mapTestMouseListener = new MapTestMouseListener();
+	protected MapTestKeyListener mapTestKeyListener = new MapTestKeyListener();
 	
 	public UIMapRenderTest() {
 		mainWindow = new JFrame();
@@ -86,13 +87,13 @@ public class UIMapRenderTest extends JPanel implements Runnable{
 		
 		tempViewportAngle = viewportAngle;
 		
-		if(viewportAngle + tempDragDistance * 90 / this.getHeight() >= 0) {
-			if(viewportAngle + tempDragDistance * 90 / this.getHeight() <= 90) {
+		if(viewportAngle + tempDragDistance * 90 / this.getHeight() >= minViewportAngle) {
+			if(viewportAngle + tempDragDistance * 90 / this.getHeight() <= maxViewportAngle) {
 				tempViewportAngle += tempDragDistance * 90 / this.getHeight() /*0.25*/;
 			}
-			else { tempViewportAngle = 90;} 
+			else { tempViewportAngle = maxViewportAngle;} 
 		} 
-		else { tempViewportAngle = 0; }
+		else { tempViewportAngle = minViewportAngle; }
 		
 		this.repaint();
 		return tempViewportAngle;

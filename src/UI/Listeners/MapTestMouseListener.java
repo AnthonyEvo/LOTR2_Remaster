@@ -97,12 +97,12 @@ public class MapTestMouseListener implements Runnable{
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
-			System.out.println("Mouce clic at: " + e.getPoint().x + "." + e.getPoint().y);
+//			System.out.println("Mouce clic at: " + e.getPoint().x + "." + e.getPoint().y);
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			System.out.println("M1 Pressed");
+//			System.out.println("M1 Pressed");
 			hitX = e.getPoint().x;
 			hitY = e.getPoint().y;
 			if(e.getButton() == MouseEvent.BUTTON1) {
@@ -113,7 +113,7 @@ public class MapTestMouseListener implements Runnable{
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			System.out.println("M1 Released");
+//			System.out.println("M1 Released");
 			if(e.getButton() == MouseEvent.BUTTON1) {
 				isM1Pressed = false;
 				
@@ -137,7 +137,7 @@ public class MapTestMouseListener implements Runnable{
 			verticalDraggDistance = (e.getPoint().y - hitY);
 			horizontalDraggDistance = (e.getPoint().x - hitX);
 			mapDraged = true;
-			System.out.println("y = " + verticalDraggDistance);
+//			System.out.println("y = " + verticalDraggDistance);
 			
 		}
 
@@ -156,7 +156,7 @@ public class MapTestMouseListener implements Runnable{
 			else {
 				scaleModifier *= e.getScrollAmount() / 3 * 1.1;
 			}
-			System.out.println(scaleModifier);
+//			System.out.println(scaleModifier);
 			
 			isScaleChanged = true;
 		}

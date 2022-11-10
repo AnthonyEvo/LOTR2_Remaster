@@ -1,6 +1,8 @@
 package UI;
 
 import javax.swing.*;
+
+import data.shapes.Shape2D;
 import data.spaceUnits.*;
 
 

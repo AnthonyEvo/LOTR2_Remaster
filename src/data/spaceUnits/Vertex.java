@@ -3,9 +3,9 @@ package data.spaceUnits;
 import java.util.ArrayList;
 
 public class Vertex {
-	final int vertexNum;
-	Vector2 vertexPosition;
-	ArrayList<SubVertex> subvertexList = new ArrayList<SubVertex>();
+	private final int vertexNum;
+	private Vector2 vertexPosition;
+	private ArrayList<SubVertex> subvertexList = new ArrayList<SubVertex>();
 	
 	public Vertex(int num, Vector2 position) {
 		vertexNum = num;
@@ -25,9 +25,9 @@ public class Vertex {
 			Vector2D temp = new Vector2D(this.getPosition(), linkingVertex.getPosition());
 			subvertexList.add(new SubVertex(this.getPosition(), temp.getMiddle(), linkingVertex.getNum()));
 						
-			System.out.println("Vertex " + vertexNum + ": link created from " + temp.getPosition().getX() + ", " + temp.getPosition().getY());
-			System.out.println("Vertex " + vertexNum + ": link created to " + linkingVertex.getPosition().getX() + ", " + linkingVertex.getPosition().getY());
-			System.out.println("Vertex " + vertexNum + ": middle at: " + temp.getMiddle().getX() + ", " + temp.getMiddle().getY());
+//			System.out.println("Vertex " + vertexNum + ": link created from " + temp.getPosition().getX() + ", " + temp.getPosition().getY());
+//			System.out.println("Vertex " + vertexNum + ": link created to " + linkingVertex.getPosition().getX() + ", " + linkingVertex.getPosition().getY());
+//			System.out.println("Vertex " + vertexNum + ": middle at: " + temp.getMiddle().getX() + ", " + temp.getMiddle().getY());
 		}
 	}
 	

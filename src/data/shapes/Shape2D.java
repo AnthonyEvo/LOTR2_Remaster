@@ -1,0 +1,135 @@
+package data.shapes;
+
+import java.util.ArrayList;
+
+import data.spaceUnits.Vector2;
+import data.spaceUnits.Vector2D;
+import data.spaceUnits.Vertex;
+
+public class Shape2D {
+	
+	protected Vector2 axis = new Vector2(0, 0);
+	protected ArrayList<Vertex> vertexList = new ArrayList<Vertex>();
+	
+	protected String shapeName;
+	protected Double angleRad, angleDegr;
+	protected Integer vertexNum = 0;
+	
+	public Shape2D(String name, double angle, boolean isRad) {
+		shapeName = name;
+		if(isRad) {
+			angleRad = angle; angleDegr = angle / Math.PI * 180;
+		}
+		else {
+			angleRad = angle * Math.PI / 180; angleDegr = angle;
+		}
+	}
+	
+	public void setPosition(Vector2 position) { axis = position; }
+	
+	public void setAngle(double angle, boolean inRad) {
+		if(inRad) {
+			angleRad = angle; angleDegr = angle / Math.PI * 180;
+		}
+		else {
+			angleRad = angle * Math.PI / 180; angleDegr = angle;
+		}
+	}
+	
+	public Vector2 getAxis() {
+		return axis;
+	}
+	
+	public double getAngle(boolean inRad) {
+		if(inRad) { return angleRad ; }
+		else { return angleDegr; }
+	}
+	
+	public void addVertex(Vector2 position) {
+		vertexList.add(new Vertex(vertexNum, position));
+		vertexNum++;
+	}
+		
+	public void addVertex(double distance, double angle, boolean isRad) {
+		double globalX = 0, globalY = 0, vertexAngle;
+		if(isRad) vertexAngle = angle; else vertexAngle = angle * Math.PI / 180;
+		
+			globalX = Math.cos(vertexAngle) * distance;
+			globalY = Math.sin(vertexAngle) * distance;
+				
+		vertexList.add( new Vertex(vertexNum, new Vector2(globalX, globalY)));
+		vertexNum++;
+	}
+	
+	public void createLink(int vert1, int vert2) {
+		vertexList.stream().forEach(vertex -> {
+			if(vertex.getNum() == vertexList.get(vert1).getNum()) vertex.buildLink(vertexList.get(vert2));
+			if(vertex.getNum() == vertexList.get(vert2).getNum()) vertex.buildLink(vertexList.get(vert1));
+		});
+	}
+	
+	public ArrayList<Vertex> getVertexList() {
+		return vertexList;
+	}
+	
+	public Vertex getVertex(int num) {		
+		return vertexList.get(num);
+	}
+	
+	protected double getVertexASin(int vertNum) {
+		return Math.asin(getVertex(vertNum).getPosition().getY() / getVertex(vertNum).getPosition().getRadius());
+	}
+	
+	protected double getVertexASin(Vector2 subVert) {
+		return Math.asin(subVert.getY() / subVert.getRadius());
+	}
+	
+	protected double getVertexACos(int vertNum) {	
+		return Math.acos(getVertex(vertNum).getPosition().getX() / getVertex(vertNum).getPosition().getRadius());
+	}
+	
+	protected double getVertexACos(Vector2 subVert) {
+		return Math.acos(subVert.getX() / subVert.getRadius());
+	}
+	
+	public Vector2 getVertexPosition(int num) {
+		return getVertexPosition(this.axis, this.getVertex(num).getPosition());
+	}
+	
+	public Vector2 getVertexPosition(Vector2 axis, Vector2 pos) {
+		double globalX = 0, globalY = 0,
+		localX = pos.getX(), 
+		localY = pos.getY();
+		
+		if(localX >= 0 && localY >= 0) { globalX = axis.getX() + Math.cos(getVertexASin(pos) + angleRad) * pos.getRadius();
+			globalY = axis.getY() + Math.sin(getVertexASin(pos) + angleRad) * pos.getRadius();
+		}
+		if(localX >= 0 && localY < 0) { globalX = axis.getX() + Math.cos(getVertexACos(pos) - angleRad) * pos.getRadius();
+			globalY = axis.getY() + Math.sin(getVertexASin(pos) + angleRad) * pos.getRadius();
+		}
+		if(localX < 0 && localY >= 0) { globalX = axis.getX() + Math.cos(getVertexACos(pos) + angleRad) * pos.getRadius();
+			globalY = axis.getY() + Math.sin(getVertexACos(pos) + angleRad) * pos.getRadius();
+		}
+		if(localX < 0 && localY < 0) { globalX = axis.getX() + Math.cos(getVertexACos(pos) - angleRad) * pos.getRadius();
+			globalY = axis.getY() + Math.sin(getVertexASin(pos) - angleRad) * pos.getRadius();
+		}
+		return new Vector2 (globalX, globalY);
+	}
+	
+	public ArrayList<Vector2D> getVertexLinksPositions(int num) {
+		ArrayList<Vector2D> temp = new ArrayList<Vector2D>();
+		for(Vector2D subVertex : vertexList.get(num).getSubVertexList()) {
+//			System.out.println("Vertex " + num + ": link created from " + subVertex.getX() + ", " + subVertex.getY());
+//			System.out.println("Vertex " + num + ": link created to " + subVertex.getEnd().getX() + ", " + subVertex.getEnd().getY());						
+//			System.out.println(getVertexACos(subVertex.getEnd()) / Math.PI * 180);
+//			System.out.println(getVertexASin(subVertex.getEnd()) / Math.PI * 180);
+			
+			temp.add(new Vector2D(getVertexPosition(this.axis, subVertex), getVertexPosition(this.axis, subVertex.getEnd())));
+		}
+		return temp;
+	}
+	
+	public void logMessage() {
+		System.out.println(getVertexPosition(0).getX() + " " + getVertexPosition(0).getY());
+	}
+}
