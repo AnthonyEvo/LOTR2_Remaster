@@ -1,12 +1,11 @@
-package data.shapes;
+package data.forms;
 
 import java.util.ArrayList;
 
-import data.spaceUnits.Vector2;
-import data.spaceUnits.Vector2D;
-import data.spaceUnits.Vertex;
+import data.units.Vector2;
+import data.units.Vector2D;
 
-public class Shape2D {
+public class Poly {
 	
 	protected Vector2 axis = new Vector2(0, 0);
 	protected ArrayList<Vertex> vertexList = new ArrayList<Vertex>();
@@ -15,7 +14,7 @@ public class Shape2D {
 	protected Double angleRad, angleDegr;
 	protected Integer vertexNum = 0;
 	
-	public Shape2D(String name, double angle, boolean isRad) {
+	public Poly(String name, double angle, boolean isRad) {
 		shapeName = name;
 		if(isRad) {
 			angleRad = angle; angleDegr = angle / Math.PI * 180;
@@ -28,12 +27,8 @@ public class Shape2D {
 	public void setPosition(Vector2 position) { axis = position; }
 	
 	public void setAngle(double angle, boolean inRad) {
-		if(inRad) {
-			angleRad = angle; angleDegr = angle / Math.PI * 180;
-		}
-		else {
-			angleRad = angle * Math.PI / 180; angleDegr = angle;
-		}
+		if(inRad) { angleRad = angle; angleDegr = angle / Math.PI * 180; }
+		else { angleRad = angle * Math.PI / 180; angleDegr = angle; }
 	}
 	
 	public Vector2 getAxis() {
@@ -53,11 +48,18 @@ public class Shape2D {
 	public void addVertex(double distance, double angle, boolean isRad) {
 		double globalX = 0, globalY = 0, vertexAngle;
 		if(isRad) vertexAngle = angle; else vertexAngle = angle * Math.PI / 180;
-		
-			globalX = Math.cos(vertexAngle) * distance;
-			globalY = Math.sin(vertexAngle) * distance;
-				
-		vertexList.add( new Vertex(vertexNum, new Vector2(globalX, globalY)));
+		globalX = Math.cos(vertexAngle) * distance;
+		globalY = Math.sin(vertexAngle) * distance;		
+		vertexList.add(new Vertex(vertexNum, new Vector2(globalX, globalY)));
+		vertexNum++;
+	}
+	
+	public void addVertex(Vector2 position, double distance, double angle, boolean isRad) {
+		double globalX = 0, globalY = 0, vertexAngle;
+		if(isRad) vertexAngle = angle; else vertexAngle = angle * Math.PI / 180;
+		globalX = Math.cos(vertexAngle) * distance + position.getX();
+		globalY = Math.sin(vertexAngle) * distance + position.getY();	
+		vertexList.add(new Vertex(vertexNum, new Vector2(globalX, globalY)));
 		vertexNum++;
 	}
 	

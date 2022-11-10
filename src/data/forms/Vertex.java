@@ -1,6 +1,9 @@
-package data.spaceUnits;
+package data.forms;
 
 import java.util.ArrayList;
+
+import data.units.Vector2;
+import data.units.Vector2D;
 
 public class Vertex {
 	private final int vertexNum;

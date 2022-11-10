@@ -5,9 +5,9 @@ import java.awt.*;
 import java.awt.Graphics;
 
 import UI.Listeners.*;
-import data.shapes.Shape2D;
-import data.spaceUnits.Vector2;
-import data.spaceUnits.Vector2D;
+import data.forms.Poly;
+import data.units.Vector2;
+import data.units.Vector2D;
 import edu.Lab1Drawer;
 
 public class UIMapRenderTest extends JPanel implements Runnable{

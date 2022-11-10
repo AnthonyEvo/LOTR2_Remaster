@@ -1,4 +1,4 @@
-package data.spaceUnits;
+package data.units;
 
 public class Vector2D extends Vector2 {
 

@@ -2,16 +2,16 @@ package UI;
 
 import javax.swing.*;
 
-import data.shapes.Shape2D;
-import data.spaceUnits.*;
+import data.forms.Poly;
+import data.units.*;
 
 
 public class UIGameMapRenderer extends JPanel {
 	int panelWidth, panelHeights;
-	Shape2D shape;
+	Poly shape;
 	
 	UIGameMapRenderer() {
-		shape = new Shape2D("triangle", 0, true);
+		shape = new Poly("triangle", 0, true);
 		shape.setPosition(new Vector2(50, 50));
 		shape.addVertex(new Vector2(-20, -1));
 		shape.addVertex(new Vector2(21, 1));

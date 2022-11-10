@@ -1,6 +1,6 @@
 package UI;
 
-import data.spaceUnits.Vector2;
+import data.units.Vector2;
 
 public class UIMapFocus {
 	
