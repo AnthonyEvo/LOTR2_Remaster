@@ -3,8 +3,9 @@ package edu;
 import java.awt.Graphics;
 
 import UI.UIMapRenderTest;
-import data.forms.Poly;
-import data.shapes.Arrow;
+import UI.InputHandlers.CommandPromptInputHandler;
+import data.forms.WireFrame2D;
+import data.shapes.WireArrow;
 import data.units.*;
 
 import java.awt.Color;
@@ -12,25 +13,14 @@ import java.awt.Font;
 
 public class Lab1Drawer extends UIMapRenderTest {
 	
-	Poly shape;
 	double scaleMod;
 	
 	public Lab1Drawer() {
 		super();
-		
+				
 		this.setBackground(Color.white);
 		minViewportAngle = -180;
 		maxViewportAngle = 180;
-		
-		shape = new Poly("triangle", 0, true);
-		shape.setPosition(new Vector2(50, 50));
-		shape.addVertex(50, 0, false);
-		shape.addVertex(50, 120, false);
-		shape.addVertex(50, 240, false);
-		
-		shape.createLink(0, 1);
-		shape.createLink(1, 2);
-		shape.createLink(2, 0);
 	}
 	
 	@Override
@@ -38,21 +28,16 @@ public class Lab1Drawer extends UIMapRenderTest {
 		scaleMod = mapTestMouseListener.getScaleModifier();
 		super.paintComponent(G);
 		drawTwoLayerGrid(G);
-		drawPoly(G, shape);
-		drawPoly(G, new Arrow(Math.PI/2, true), Direction.front.getDirectionColor());
-		drawPoly(G, new Arrow(0, true), Direction.right.getDirectionColor());
-		drawMarking(G, shape, false);
+		drawPoly(G, new WireArrow(Math.PI/2, true), Direction.front.getDirectionColor());
+		drawPoly(G, new WireArrow(0, true), Direction.right.getDirectionColor());
 	}
 	
-	public void drawPoly(Graphics g, Poly shape) {
+	public void drawPoly(Graphics g, WireFrame2D shape) {
 		Color defaultColor = Color.black;
 		drawPoly(g, shape, defaultColor);
 	}
 	
-	public void drawPoly(Graphics g, Poly shape, Color color) {
-		
-		shape.setAngle(tempViewportAngle, false);
-		
+	public void drawPoly(Graphics g, WireFrame2D shape, Color color) {
 		for(int i = 0; i < shape.getVertexList().size(); i++) {
 			for(Vector2D pos : shape.getVertexLinksPositions(i)) {
 				g.setColor(color);
@@ -64,7 +49,7 @@ public class Lab1Drawer extends UIMapRenderTest {
 		}
 	}
 	
-	protected void drawMarking(Graphics g, Poly shape, boolean showStrings) {
+	protected void drawMarking(Graphics g, WireFrame2D shape, boolean showStrings) {
 		for(int i = 0; i < shape.getVertexList().size(); i++) {
 			for(Vector2D pos : shape.getVertexLinksPositions(i)) {
 				g.setColor(Color.orange);
@@ -122,7 +107,6 @@ public class Lab1Drawer extends UIMapRenderTest {
 		drawSimpleGrid(g, 10, new Color(235, 235, 235));
 	}
 	
-	
 	protected void drawSimpleGrid(Graphics g, int stepSize, Color color) {
 		g.setColor(color);
 		for(int i = 0 ; i < Math.abs(this.getWidth() / (stepSize * scaleMod)) + 1; i++) {
@@ -138,8 +122,5 @@ public class Lab1Drawer extends UIMapRenderTest {
 					(int) this.getWidth(), 
 					(int) (((tempVerticalMapShift) % (stepSize * scaleMod)) + (stepSize * scaleMod * i)));
 		}
-		
-		
-		
 	}
 }

@@ -4,14 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics;
 
+import UI.InputHandlers.CommandPromptInputHandler;
 import UI.Listeners.*;
-import data.forms.Poly;
-import data.units.Vector2;
-import data.units.Vector2D;
-import edu.Lab1Drawer;
 
 public class UIMapRenderTest extends JPanel implements Runnable{
-	JFrame mainWindow;
+	protected JFrame mainWindow;
+	protected JTextPane inputPane;
+	
 	TileContainer[][] mapTiles;
 	
 	Thread uiMapTest = new Thread (this, "UI Map Test");
@@ -20,26 +19,40 @@ public class UIMapRenderTest extends JPanel implements Runnable{
 	protected double viewportAngle = 0, tempViewportAngle = viewportAngle;
 	protected double minViewportAngle = 0, maxViewportAngle = 90;
 	
-	protected int horizontalMapShift = 0, tempHorizontalMapShift = horizontalMapShift;
-	protected int verticalMapShift = 0, tempVerticalMapShift = verticalMapShift;
+	protected int horizontalMapShift = 20, tempHorizontalMapShift = horizontalMapShift;
+	protected int verticalMapShift = 10, tempVerticalMapShift = verticalMapShift;
 	
 	protected MapTestMouseListener mapTestMouseListener = new MapTestMouseListener();
 	protected MapTestKeyListener mapTestKeyListener = new MapTestKeyListener();
+	protected CommandPromptListener CPKeyListener = new CommandPromptListener();
+	
+	protected CommandPromptInputHandler cpInputHandler;
 	
 	public UIMapRenderTest() {
-		mainWindow = new JFrame();
-		mainWindow.setSize(500, 500);
-		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		mainWindow = new JFrame();
+		mainWindow.setSize(600, 550);
+		mainWindow.setLayout(new FlowLayout());
+		mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainWindow.setVisible(true);
+		
+		inputPane = new JTextPane();
+		inputPane.setPreferredSize(new Dimension(mainWindow.getContentPane().getWidth(), 35));
+		inputPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		this.setPreferredSize(new Dimension(mainWindow.getWidth(), mainWindow.getContentPane().getHeight() - 35));
+		this.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.addMouseListener(mapTestMouseListener.attachListener());
 		this.addMouseMotionListener(mapTestMouseListener.attachListener());
 		this.addMouseWheelListener(mapTestMouseListener.attachListener());
 		mainWindow.addKeyListener(mapTestKeyListener.attachListener());
+		inputPane.addKeyListener(CPKeyListener.attachListener());
+		
+		cpInputHandler = new CommandPromptInputHandler(CPKeyListener, inputPane);
 		
 		mainWindow.add(this);
-		mainWindow.setVisible(true);
-		
-		
+		mainWindow.add(inputPane);
+		mainWindow.revalidate();
 		
 		uiMapTest.start();
 	}
@@ -118,6 +131,7 @@ public class UIMapRenderTest extends JPanel implements Runnable{
 					horizontalMapShift = tempHorizontalMapShift;
 					verticalMapShift = tempVerticalMapShift;
 				}
+				cpInputHandler.checkListeners();
 			}
 		} catch (InterruptedException Ex) { }
 	}

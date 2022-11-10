@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import data.units.Vector2;
 import data.units.Vector2D;
 
-public class Poly {
+public class WireFrame2D {
 	
 	protected Vector2 axis = new Vector2(0, 0);
-	protected ArrayList<Vertex> vertexList = new ArrayList<Vertex>();
+	protected ArrayList<Vertex2D> vertexList = new ArrayList<Vertex2D>();
 	
 	protected String shapeName;
 	protected Double angleRad, angleDegr;
 	protected Integer vertexNum = 0;
 	
-	public Poly(String name, double angle, boolean isRad) {
+	public WireFrame2D(String name, double angle, boolean isRad) {
 		shapeName = name;
 		if(isRad) {
 			angleRad = angle; angleDegr = angle / Math.PI * 180;
@@ -23,6 +23,8 @@ public class Poly {
 			angleRad = angle * Math.PI / 180; angleDegr = angle;
 		}
 	}
+	
+	protected void buildWireFrame(double direction, boolean isRad) {}
 	
 	public void setPosition(Vector2 position) { axis = position; }
 	
@@ -41,7 +43,7 @@ public class Poly {
 	}
 	
 	public void addVertex(Vector2 position) {
-		vertexList.add(new Vertex(vertexNum, position));
+		vertexList.add(new Vertex2D(vertexNum, position));
 		vertexNum++;
 	}
 		
@@ -50,7 +52,7 @@ public class Poly {
 		if(isRad) vertexAngle = angle; else vertexAngle = angle * Math.PI / 180;
 		globalX = Math.cos(vertexAngle) * distance;
 		globalY = Math.sin(vertexAngle) * distance;		
-		vertexList.add(new Vertex(vertexNum, new Vector2(globalX, globalY)));
+		vertexList.add(new Vertex2D(vertexNum, new Vector2(globalX, globalY)));
 		vertexNum++;
 	}
 	
@@ -59,7 +61,7 @@ public class Poly {
 		if(isRad) vertexAngle = angle; else vertexAngle = angle * Math.PI / 180;
 		globalX = Math.cos(vertexAngle) * distance + position.getX();
 		globalY = Math.sin(vertexAngle) * distance + position.getY();	
-		vertexList.add(new Vertex(vertexNum, new Vector2(globalX, globalY)));
+		vertexList.add(new Vertex2D(vertexNum, new Vector2(globalX, globalY)));
 		vertexNum++;
 	}
 	
@@ -70,11 +72,11 @@ public class Poly {
 		});
 	}
 	
-	public ArrayList<Vertex> getVertexList() {
+	public ArrayList<Vertex2D> getVertexList() {
 		return vertexList;
 	}
 	
-	public Vertex getVertex(int num) {		
+	public Vertex2D getVertex(int num) {		
 		return vertexList.get(num);
 	}
 	

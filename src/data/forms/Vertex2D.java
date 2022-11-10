@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import data.units.Vector2;
 import data.units.Vector2D;
 
-public class Vertex {
+public class Vertex2D {
 	private final int vertexNum;
 	private Vector2 vertexPosition;
 	private ArrayList<SubVertex> subvertexList = new ArrayList<SubVertex>();
 	
-	public Vertex(int num, Vector2 position) {
+	public Vertex2D(int num, Vector2 position) {
 		vertexNum = num;
 		vertexPosition = position;
 	}
@@ -23,7 +23,7 @@ public class Vertex {
 		return vertexPosition.getRadius();
 	}
 	
-	public void buildLink(Vertex linkingVertex) {
+	public void buildLink(Vertex2D linkingVertex) {
 		if(!subvertexList.stream().anyMatch(link -> link.getMarker() == linkingVertex.getNum())) {
 			Vector2D temp = new Vector2D(this.getPosition(), linkingVertex.getPosition());
 			subvertexList.add(new SubVertex(this.getPosition(), temp.getMiddle(), linkingVertex.getNum()));
@@ -34,7 +34,7 @@ public class Vertex {
 		}
 	}
 	
-	public void dropLink(Vertex linkingVertex) {
+	public void dropLink(Vertex2D linkingVertex) {
 		if(subvertexList.stream().anyMatch(link -> link.getMarker() == linkingVertex.getNum())) {
 			subvertexList.removeIf(link -> link.getMarker() == linkingVertex.getNum());
 		}

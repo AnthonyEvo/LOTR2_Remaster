@@ -20,12 +20,12 @@ public class GlobalMap {
 		for(int i = 0, j = 0; j < globalMapTileGrid[0].length; i++) {
 			globalMapTileGrid[i][j] = new GlobalMapTile(GlobalMapTileType.forest);
 			
-			System.out.print(globalMapTileGrid[i][j].getTileTag() + "\t");
+//			System.out.print(globalMapTileGrid[i][j].getTileTag() + "\t");
 			
 			if(i + 1 == globalMapTileGrid.length) {
 				i = -1;
 				j++;
-				System.out.println();
+//				System.out.println();
 			}
 		}
 	}
