@@ -46,15 +46,18 @@ public class UIMapRenderTest extends JPanel implements Runnable{
 		
 		this.setPreferredSize(new Dimension(mainWindow.getWidth(), mainWindow.getContentPane().getHeight() - 35));
 		this.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
 		this.addMouseListener(mapTestMouseListener.attachListener());
 		this.addMouseMotionListener(mapTestMouseListener.attachListener());
 		this.addMouseWheelListener(mapTestMouseListener.attachListener());
-		mainWindow.addKeyListener(mapTestKeyListener.attachListener());
+		this.addKeyListener(mapTestKeyListener.attachListener());
 		inputPane.addKeyListener(CPKeyListener.attachListener());
 		
 		cpInputHandler = new CommandPromptInputHandler(renderList, CPKeyListener, inputPane);
 		
 		mainWindow.add(this);
+		this.setFocusable(true);
+		this.requestFocusInWindow();
 		mainWindow.add(inputPane);
 		mainWindow.revalidate();
 		
@@ -134,9 +137,12 @@ public class UIMapRenderTest extends JPanel implements Runnable{
 					viewportAngle = tempViewportAngle;
 					horizontalMapShift = tempHorizontalMapShift;
 					verticalMapShift = tempVerticalMapShift;
+				} else {
+					this.requestFocusInWindow();
 				}
 				cpInputHandler.checkListeners();
 				if(cpInputHandler.commandUsed()) repaint();
+				renderList.stream().forEach(item -> item.setAngle(tempViewportAngle, false));
 			}
 		} catch (InterruptedException Ex) { }
 	}

@@ -18,8 +18,8 @@ public class WireTriangle extends WireFrame2D{
 	protected void buildWireFrame(Vector2D line) {
 		addVertex(line.getPosition());
 		addVertex(line.getEnd());
-		addVertex(line.getPosition(), line.getDistance(), /*Math.PI / 3 + */this.getVertexAngle(line.normalize(), true) + angleRad, true);
-		
+		addVertex(line.getPosition(), line.getDistance(), Math.PI / 3 + this.getVertexAngle(line.getVector2(), true), true);
+		System.out.println(Math.abs(this.getVertexAngle(line.normalize(), true) * 100) / 100 + " ");
 		this.createLink(0, 1); this.createLink(1, 2); this.createLink(2, 0);
 	}
 }
