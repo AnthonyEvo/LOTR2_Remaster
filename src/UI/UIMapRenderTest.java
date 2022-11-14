@@ -136,6 +136,7 @@ public class UIMapRenderTest extends JPanel implements Runnable{
 					verticalMapShift = tempVerticalMapShift;
 				}
 				cpInputHandler.checkListeners();
+				if(cpInputHandler.commandUsed()) repaint();
 			}
 		} catch (InterruptedException Ex) { }
 	}

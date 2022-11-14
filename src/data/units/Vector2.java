@@ -34,4 +34,18 @@ public class Vector2 {
 	public double getRadius() {
 		return Math.sqrt(Math.pow(posX, 2) + Math.pow(posY, 2));
 	}
+	
+	public static Vector2 subtractVector2(Vector2 operand1, Vector2 operand2) {
+		return new Vector2(
+			operand1.getX() - operand2.getX(), 
+			operand1.getY() - operand2.getY()
+		);
+	}
+	
+	public static Vector2 divideVector2(Vector2 operand1, double operand2) {
+		return new Vector2(
+				operand1.getX() / operand2, 
+				operand1.getY() / operand2
+			);
+	}
 }

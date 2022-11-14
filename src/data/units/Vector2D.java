@@ -29,8 +29,10 @@ public class Vector2D extends Vector2 {
 	}
 	
 	public Vector2 getMiddle() {
-		return new Vector2(this.getX() + normalize().getX() * getDistance() / 2, 
-							this.getY() + normalize().getY() * getDistance() / 2);
+		return new Vector2(
+			this.getX() + normalize().getX() * getDistance() / 2, 
+			this.getY() + normalize().getY() * getDistance() / 2
+		);
 	}
 	
 	public Vector2 getEnd() { return end.getPosition(); }

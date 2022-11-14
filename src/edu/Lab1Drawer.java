@@ -30,7 +30,7 @@ public class Lab1Drawer extends UIMapRenderTest {
 		drawPoly(G, new WireArrow(Math.PI/2, true), Direction.front.getDirectionColor());
 		drawPoly(G, new WireArrow(0, true), Direction.right.getDirectionColor());
 		renderList.stream().forEach(item -> {drawPoly(G,item);});
-		renderList.stream().forEach(item -> {drawMarking(G,item, false);});
+		renderList.stream().forEach(item -> {drawMarking(G,item, true);});
 	}
 	
 	public void drawPoly(Graphics g, WireFrame2D shape) {

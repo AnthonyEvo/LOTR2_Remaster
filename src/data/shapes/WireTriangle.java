@@ -10,15 +10,15 @@ public class WireTriangle extends WireFrame2D{
 	}
 	
 	public WireTriangle(Vector2D line) {
-		super("Triangle", 0, true);
+		super("Triangle", 0, false);
 		setPosition(line.getMiddle());
-		buildWireFrame(line);
+		buildWireFrame(new Vector2D(Vector2.subtractVector2(new Vector2(0, 0), Vector2.divideVector2(line.getVector2(), 2)), Vector2.divideVector2(line.getVector2(), 2)));
 	}
 	
 	protected void buildWireFrame(Vector2D line) {
 		addVertex(line.getPosition());
 		addVertex(line.getEnd());
-		addVertex(line.getPosition(), line.getDistance(), Math.PI / 3 + this.getVertexACos(line.normalize()), true);
+		addVertex(line.getPosition(), line.getDistance(), /*Math.PI / 3 + */this.getVertexAngle(line.normalize(), true) + angleRad, true);
 		
 		this.createLink(0, 1); this.createLink(1, 2); this.createLink(2, 0);
 	}

@@ -50,8 +50,13 @@ public class WireFrame2D {
 	public void addVertex(double distance, double angle, boolean isRad) {
 		double globalX = 0, globalY = 0, vertexAngle;
 		if(isRad) vertexAngle = angle; else vertexAngle = angle * Math.PI / 180;
-		globalX = Math.cos(vertexAngle) * distance;
-		globalY = Math.sin(vertexAngle) * distance;		
+		
+		globalX = Math.cos(vertexAngle) * distance; 
+		if(Double.isNaN(globalX)) globalX = 0;
+		
+		globalY = Math.sin(vertexAngle) * distance;	
+		if(Double.isNaN(globalY)) globalY = 0;
+		
 		vertexList.add(new Vertex2D(vertexNum, new Vector2(globalX, globalY)));
 		vertexNum++;
 	}
@@ -59,8 +64,15 @@ public class WireFrame2D {
 	public void addVertex(Vector2 position, double distance, double angle, boolean isRad) {
 		double globalX = 0, globalY = 0, vertexAngle;
 		if(isRad) vertexAngle = angle; else vertexAngle = angle * Math.PI / 180;
-		globalX = Math.cos(vertexAngle) * distance + position.getX();
-		globalY = Math.sin(vertexAngle) * distance + position.getY();	
+		
+		globalX = Math.cos(vertexAngle) * distance; 
+		if(Double.isNaN(globalX)) globalX = 0; 
+		globalX += position.getX();
+		
+		globalY = Math.sin(vertexAngle) * distance;	
+		if(Double.isNaN(globalY)) globalY = 0; 
+		globalY += position.getY();
+		
 		vertexList.add(new Vertex2D(vertexNum, new Vector2(globalX, globalY)));
 		vertexNum++;
 	}
@@ -105,19 +117,49 @@ public class WireFrame2D {
 		localX = pos.getX(), 
 		localY = pos.getY();
 		
-		if(localX >= 0 && localY >= 0) { globalX = axis.getX() + Math.cos(getVertexASin(pos) + angleRad) * pos.getRadius();
-			globalY = axis.getY() + Math.sin(getVertexASin(pos) + angleRad) * pos.getRadius();
+		if(localX >= 0 && localY >= 0) { 
+			double shiftX = (Math.cos(getVertexASin(pos) + angleRad) * pos.getRadius()); if(Double.isNaN(shiftX)) shiftX = 0;
+			double shiftY = (Math.sin(getVertexASin(pos) + angleRad) * pos.getRadius()); if(Double.isNaN(shiftY)) shiftY = 0;
+			
+			globalX = axis.getX() + shiftX;
+			globalY = axis.getY() + shiftY;
+//			System.out.println("aX: " + Math.cos(getVertexASin(pos) + angleRad)  + " X: " + globalX  + " aY: " + Math.sin(getVertexASin(pos) + angleRad)  + " Y: " + globalY );
 		}
-		if(localX >= 0 && localY < 0) { globalX = axis.getX() + Math.cos(getVertexACos(pos) - angleRad) * pos.getRadius();
-			globalY = axis.getY() + Math.sin(getVertexASin(pos) + angleRad) * pos.getRadius();
+		if(localX >= 0 && localY < 0) { 
+			globalX = axis.getX() + (Math.cos(getVertexACos(pos) - angleRad) * pos.getRadius());
+			globalY = axis.getY() + (Math.sin(getVertexASin(pos) + angleRad) * pos.getRadius());
 		}
-		if(localX < 0 && localY >= 0) { globalX = axis.getX() + Math.cos(getVertexACos(pos) + angleRad) * pos.getRadius();
-			globalY = axis.getY() + Math.sin(getVertexACos(pos) + angleRad) * pos.getRadius();
+		if(localX < 0 && localY >= 0) { 
+			globalX = axis.getX() + (Math.cos(getVertexACos(pos) + angleRad) * pos.getRadius());
+			globalY = axis.getY() + (Math.sin(getVertexACos(pos) + angleRad) * pos.getRadius());
 		}
-		if(localX < 0 && localY < 0) { globalX = axis.getX() + Math.cos(getVertexACos(pos) - angleRad) * pos.getRadius();
-			globalY = axis.getY() + Math.sin(getVertexASin(pos) - angleRad) * pos.getRadius();
+		if(localX < 0 && localY < 0) { 
+			globalX = axis.getX() + (Math.cos(getVertexACos(pos) - angleRad) * pos.getRadius());
+			globalY = axis.getY() + (Math.sin(getVertexASin(pos) - angleRad) * pos.getRadius());
 		}
 		return new Vector2 (globalX, globalY);
+	}
+	
+	public double getVertexAngle(Vector2 pos, boolean isRad) {
+		double angle = 0,
+		localX = pos.getX(),
+		localY = pos.getY();
+		
+		if(localX >= 0 && localY >= 0) { 
+			angle = Math.sin(getVertexASin(pos) + angleRad); if(Double.isNaN(angle)) angle = 0;
+//			System.out.println("aX: " + Math.cos(getVertexASin(pos) + angleRad)  + " X: " + globalX  + " aY: " + Math.sin(getVertexASin(pos) + angleRad)  + " Y: " + globalY );
+		}
+		if(localX >= 0 && localY < 0) { 
+			angle = Math.PI * 2 - Math.sin(getVertexASin(pos) + angleRad) * pos.getRadius();
+		}
+		if(localX < 0 && localY >= 0) { 
+			angle = Math.cos(getVertexACos(pos) - angleRad);
+		}
+		if(localX < 0 && localY < 0) { 
+			angle = Math.PI * 2 - Math.cos(getVertexACos(pos) - angleRad);
+		}
+		if(isRad) return angle;
+		else return angle / Math.PI * 180;
 	}
 	
 	public ArrayList<Vector2D> getVertexLinksPositions(int num) {

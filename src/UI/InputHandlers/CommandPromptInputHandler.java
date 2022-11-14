@@ -16,6 +16,8 @@ public class CommandPromptInputHandler {
 	
 	ArrayList<BasicCommand> registredCommands = new ArrayList<BasicCommand>();
 	
+	boolean isCommandHandled = false;
+	
 	public CommandPromptInputHandler(ArrayList<WireFrame2D> shapes, CommandPromptListener listener, JTextPane textPane) {
 		attachedListener = listener;
 		attachedTextPane = textPane;
@@ -63,8 +65,15 @@ public class CommandPromptInputHandler {
 				item.makeAction(attachedShapes);
 			} 
 		});
+		isCommandHandled = true;
 		System.out.println("Command used: " + commandName + " ");
 		
+	}
+	
+	public boolean commandUsed() {
+		boolean temp = isCommandHandled;
+		isCommandHandled = false;
+		return temp;
 	}
 	
 	private RecognizedParameter parceParameter(String message, char paramToValueDevider, char valueDevider) {
