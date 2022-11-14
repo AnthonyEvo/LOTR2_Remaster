@@ -3,9 +3,11 @@ package UI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import UI.InputHandlers.CommandPromptInputHandler;
 import UI.Listeners.*;
+import data.forms.WireFrame2D;
 
 public class UIMapRenderTest extends JPanel implements Runnable{
 	protected JFrame mainWindow;
@@ -28,6 +30,8 @@ public class UIMapRenderTest extends JPanel implements Runnable{
 	
 	protected CommandPromptInputHandler cpInputHandler;
 	
+	protected ArrayList<WireFrame2D> renderList = new ArrayList<WireFrame2D>();
+	
 	public UIMapRenderTest() {
 		
 		mainWindow = new JFrame();
@@ -48,7 +52,7 @@ public class UIMapRenderTest extends JPanel implements Runnable{
 		mainWindow.addKeyListener(mapTestKeyListener.attachListener());
 		inputPane.addKeyListener(CPKeyListener.attachListener());
 		
-		cpInputHandler = new CommandPromptInputHandler(CPKeyListener, inputPane);
+		cpInputHandler = new CommandPromptInputHandler(renderList, CPKeyListener, inputPane);
 		
 		mainWindow.add(this);
 		mainWindow.add(inputPane);

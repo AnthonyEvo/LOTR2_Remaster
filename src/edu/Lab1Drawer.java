@@ -17,7 +17,6 @@ public class Lab1Drawer extends UIMapRenderTest {
 	
 	public Lab1Drawer() {
 		super();
-				
 		this.setBackground(Color.white);
 		minViewportAngle = -180;
 		maxViewportAngle = 180;
@@ -30,6 +29,8 @@ public class Lab1Drawer extends UIMapRenderTest {
 		drawTwoLayerGrid(G);
 		drawPoly(G, new WireArrow(Math.PI/2, true), Direction.front.getDirectionColor());
 		drawPoly(G, new WireArrow(0, true), Direction.right.getDirectionColor());
+		renderList.stream().forEach(item -> {drawPoly(G,item);});
+		renderList.stream().forEach(item -> {drawMarking(G,item, false);});
 	}
 	
 	public void drawPoly(Graphics g, WireFrame2D shape) {

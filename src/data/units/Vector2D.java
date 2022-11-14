@@ -9,6 +9,11 @@ public class Vector2D extends Vector2 {
 		end = pos2;
 	}
 	
+	public Vector2D(double x1, double y1, double x2, double y2) {
+		super(new Vector2(x1, y1));
+		end = new Vector2(x2, y2);
+	}
+	
 	@Override
 	public Vector2 normalize() {
 		Vector2 temp = getVector2();
