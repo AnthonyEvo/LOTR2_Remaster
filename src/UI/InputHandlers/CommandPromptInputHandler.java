@@ -24,6 +24,7 @@ public class CommandPromptInputHandler {
 		attachedShapes = shapes;
 		
 		registredCommands.add(new DrawTriangle());
+		registredCommands.add(new Remove());
 	}
 	
 	public void checkListeners() {

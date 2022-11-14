@@ -146,17 +146,16 @@ public class WireFrame2D {
 		localY = pos.getY();
 		
 		if(localX >= 0 && localY >= 0) { 
-			angle = Math.sin(getVertexASin(pos) + angleRad); if(Double.isNaN(angle)) angle = 0;
+			angle = getVertexASin(pos);
 		}
 		if(localX >= 0 && localY < 0) { 
-			angle = Math.PI * 2 - Math.sin(getVertexASin(pos) + angleRad) * pos.getRadius();
-			System.out.println("aX: " + Math.cos(getVertexASin(pos) + angleRad)  + " X: " + localX  + " aY: " + Math.sin(getVertexASin(pos) + angleRad)  + " Y: " + localY );
+			angle = (getVertexASin(pos));
 		}
 		if(localX < 0 && localY >= 0) { 
-			angle = Math.cos(getVertexACos(pos) - angleRad);
+			angle = getVertexACos(pos);
 		}
 		if(localX < 0 && localY < 0) { 
-			angle = Math.PI * 2 - Math.cos(getVertexACos(pos) - angleRad);
+			angle = getVertexACos(pos);
 		}
 		if(isRad) return angle;
 		else return angle / Math.PI * 180;
