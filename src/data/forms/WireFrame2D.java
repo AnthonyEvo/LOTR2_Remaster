@@ -148,15 +148,16 @@ public class WireFrame2D {
 		if(localX >= 0 && localY >= 0) { 
 			angle = getVertexASin(pos);
 		}
-		if(localX >= 0 && localY < 0) { 
-			angle = (getVertexASin(pos));
-		}
 		if(localX < 0 && localY >= 0) { 
 			angle = getVertexACos(pos);
 		}
 		if(localX < 0 && localY < 0) { 
-			angle = getVertexACos(pos);
+			angle = 2 * Math.PI - getVertexACos(pos);
 		}
+		if(localX >= 0 && localY < 0) { 
+			angle = 2 * Math.PI + getVertexASin(pos);
+		}
+		
 		if(isRad) return angle;
 		else return angle / Math.PI * 180;
 	}
