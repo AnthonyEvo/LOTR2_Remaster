@@ -9,10 +9,11 @@ public class WireFrame2D {
 	
 	protected Vector2 axis = new Vector2(0, 0);
 	protected ArrayList<Vertex2D> vertexList = new ArrayList<Vertex2D>();
+	protected ArrayList<Face2D> faceList = new ArrayList<Face2D>();
 	
 	protected String shapeName;
 	protected Double angleRad, angleDegr;
-	protected Integer vertexNum = 0;
+	protected Integer vertexNum = 0, faceNum = 0;
 	
 	public WireFrame2D(String name, double angle, boolean isRad) {
 		shapeName = name;
@@ -81,6 +82,14 @@ public class WireFrame2D {
 		vertexList.stream().forEach(vertex -> {
 			if(vertex.getNum() == vertexList.get(vert1).getNum()) vertex.buildLink(vertexList.get(vert2));
 			if(vertex.getNum() == vertexList.get(vert2).getNum()) vertex.buildLink(vertexList.get(vert1));
+		});
+	}
+	
+	public void createFace(int vert1, int vert2, int vert3) {
+		vertexList.stream().forEach(vertex -> {
+			if(vertex.getNum() == vertexList.get(vert1).getNum()) vertex.buildLink(vertexList.get(vert2));
+			if(vertex.getNum() == vertexList.get(vert2).getNum()) vertex.buildLink(vertexList.get(vert3));
+			if(vertex.getNum() == vertexList.get(vert3).getNum()) vertex.buildLink(vertexList.get(vert1));
 		});
 	}
 	
