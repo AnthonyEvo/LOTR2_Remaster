@@ -18,7 +18,7 @@ public abstract class BasicCommand {
 		commandID = setCommandID();
 		registeredParameters.add(setDefaultParameter());
 		commandName = name;
-		
+		if(parameters != null)
 		for(BasicParameter parameter : parameters) {
 			registeredParameters.add(parameter);
 		}

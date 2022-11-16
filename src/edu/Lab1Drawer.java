@@ -10,6 +10,7 @@ import data.units.*;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Polygon;
 
 public class Lab1Drawer extends UIMapRenderTest {
 	
@@ -27,10 +28,10 @@ public class Lab1Drawer extends UIMapRenderTest {
 		scaleMod = mapTestMouseListener.getScaleModifier();
 		super.paintComponent(G);
 		drawTwoLayerGrid(G);
-		drawPoly(G, new WireArrow(Math.PI/2, true), Direction.front.getDirectionColor());
-		drawPoly(G, new WireArrow(0, true), Direction.right.getDirectionColor());
+		drawPoly(G, new WireArrow("Coordinate Arrow Y", Math.PI/2, true), Direction.front.getDirectionColor());
+		drawPoly(G, new WireArrow("Coordinate Arrow X", 0, true), Direction.right.getDirectionColor());
 		renderList.stream().forEach(item -> {drawPoly(G,item);});
-		renderList.stream().forEach(item -> {drawMarking(G,item, true);});
+		renderList.stream().forEach(item -> {drawMarking(G,item, false);});
 	}
 	
 	public void drawPoly(Graphics g, WireFrame2D shape) {
@@ -39,9 +40,26 @@ public class Lab1Drawer extends UIMapRenderTest {
 	}
 	
 	public void drawPoly(Graphics g, WireFrame2D shape, Color color) {
+		
+		System.out.println("Face list length of " + shape.getName() + ": " + shape.getFaceList().size());
+		
+		for(int i = 0; i < shape.getFaceList().size(); i++) {
+			g.setColor(shape.getColor());
+			
+			Polygon polygon = new Polygon();
+			for(Vector2 pos : shape.getPoligonVertexesPositions(i)) {
+				polygon.addPoint(
+					(int)(pos.getX() * scaleMod  + tempHorizontalMapShift), 
+					(int)(pos.getY() * scaleMod + tempVerticalMapShift)
+				);
+			}
+			g.fillPolygon(polygon);
+		}
+		
 		for(int i = 0; i < shape.getVertexList().size(); i++) {
 			for(Vector2D pos : shape.getVertexLinksPositions(i)) {
 				g.setColor(color);
+				
 				g.drawLine((int)(pos.getPosition().getX() * scaleMod) + tempHorizontalMapShift, 
 						(int)(pos.getPosition().getY() * scaleMod) + tempVerticalMapShift, 
 						(int)(pos.getEnd().getX() * scaleMod) + tempHorizontalMapShift, 

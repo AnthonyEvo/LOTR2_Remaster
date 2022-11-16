@@ -15,5 +15,9 @@ public class Face2D {
 		else return baseVertexes[vertNum];
 	}
 	
-	public int getId() {return faceId;}
+	public Vertex2D[] getVertexList() {
+		return baseVertexes;
+	}
+	
+	public int getId() { return faceId; }
 }

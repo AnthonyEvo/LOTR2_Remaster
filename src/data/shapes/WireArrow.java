@@ -4,12 +4,11 @@ import data.forms.WireFrame2D;
 
 public class WireArrow extends WireFrame2D {
 		
-	public WireArrow(double direction, boolean isRad) {
-		super("Coordinate Arrow", 0, isRad);
+	public WireArrow(String name, double direction, boolean isRad) {
+		super(name, 0, isRad);
 		buildWireFrame(direction, isRad);
 	}
 	
-	@Override
 	protected void buildWireFrame(double direction, boolean isRad) {
 		addVertex(0, 0, isRad);
 		addVertex(50, direction, isRad); this.createLink(0, 1);

@@ -25,6 +25,7 @@ public class CommandPromptInputHandler {
 		
 		registredCommands.add(new DrawTriangle());
 		registredCommands.add(new Remove());
+		registredCommands.add(new SetElementColor());
 	}
 	
 	public void checkListeners() {

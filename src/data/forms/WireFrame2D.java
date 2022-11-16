@@ -1,6 +1,8 @@
 package data.forms;
 
 import java.util.ArrayList;
+import java.awt.Color;
+import java.awt.Polygon;
 
 import data.units.Vector2;
 import data.units.Vector2D;
@@ -14,6 +16,8 @@ public class WireFrame2D {
 	protected String shapeName;
 	protected Double angleRad, angleDegr;
 	protected Integer vertexNum = 0, faceNum = 0;
+	
+	protected Color facesColor = Color.black;
 	
 	public WireFrame2D(String name, double angle, boolean isRad) {
 		shapeName = name;
@@ -34,9 +38,13 @@ public class WireFrame2D {
 		else { angleRad = angle * Math.PI / 180; angleDegr = angle; }
 	}
 	
-	public Vector2 getAxis() {
-		return axis;
-	}
+	public void setColor(Color color) { facesColor = color; }
+	
+	public Color getColor() {return facesColor;}
+	
+	public String getName() {return shapeName; }
+	
+	public Vector2 getAxis() { return axis; }
 	
 	public double getAngle(boolean inRad) {
 		if(inRad) { return angleRad ; }
@@ -85,21 +93,29 @@ public class WireFrame2D {
 		});
 	}
 	
-	public void createFace(int vert1, int vert2, int vert3) {
+	public void createFace(int vertNum1, int vertNum2, int vertNum3) {
 		vertexList.stream().forEach(vertex -> {
-			if(vertex.getNum() == vertexList.get(vert1).getNum()) vertex.buildLink(vertexList.get(vert2));
-			if(vertex.getNum() == vertexList.get(vert2).getNum()) vertex.buildLink(vertexList.get(vert3));
-			if(vertex.getNum() == vertexList.get(vert3).getNum()) vertex.buildLink(vertexList.get(vert1));
+			if(vertex.getNum() == vertexList.get(vertNum1).getNum()) {
+				vertex.buildLink(vertexList.get(vertNum2)); vertex.buildLink(vertexList.get(vertNum3));
+			}
+			if(vertex.getNum() == vertexList.get(vertNum2).getNum()) {
+				vertex.buildLink(vertexList.get(vertNum3)); vertex.buildLink(vertexList.get(vertNum1));
+			}
+			if(vertex.getNum() == vertexList.get(vertNum3).getNum()) { 
+				vertex.buildLink(vertexList.get(vertNum1)); vertex.buildLink(vertexList.get(vertNum2));
+			}
 		});
+		faceList.add(new Face2D(vertexList.get(vertNum1), vertexList.get(vertNum2), vertexList.get(vertNum3), faceNum));
+		faceNum++;
 	}
 	
-	public ArrayList<Vertex2D> getVertexList() {
-		return vertexList;
-	}
+	public ArrayList<Vertex2D> getVertexList() { return vertexList; }
 	
-	public Vertex2D getVertex(int num) {		
-		return vertexList.get(num);
-	}
+	public ArrayList<Face2D> getFaceList() { return faceList; }
+	
+	public Vertex2D getVertex(int num) { return vertexList.get(num); }
+	
+	public Face2D getFace(int num) { return faceList.get(num); }
 	
 	protected double getVertexASin(int vertNum) {
 		return Math.asin(getVertex(vertNum).getPosition().getY() / getVertex(vertNum).getPosition().getRadius());
@@ -180,6 +196,15 @@ public class WireFrame2D {
 //			System.out.println(getVertexASin(subVertex.getEnd()) / Math.PI * 180);
 			
 			temp.add(new Vector2D(getVertexPosition(this.axis, subVertex), getVertexPosition(this.axis, subVertex.getEnd())));
+		}
+		return temp;
+	}
+	
+	public ArrayList<Vector2> getPoligonVertexesPositions(int polygonNum) {
+		ArrayList<Vector2> temp = new ArrayList<Vector2>();
+		Face2D face = this.getFace(polygonNum);
+		for(int i = 0; i < 3; i++) {
+			temp.add(getVertexPosition(this.axis, face.getVertexList()[i].getPosition()));
 		}
 		return temp;
 	}
