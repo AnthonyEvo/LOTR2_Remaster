@@ -1,6 +1,6 @@
 package data;
 
-import UI.UIMapRenderTest;
+import UI.UITestMapRender;
 import edu.Lab1Drawer;
 
 public class GameMapConnector {

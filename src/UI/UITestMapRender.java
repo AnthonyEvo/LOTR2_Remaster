@@ -9,7 +9,7 @@ import UI.InputHandlers.CommandPromptInputHandler;
 import UI.Listeners.*;
 import data.forms.WireFrame2D;
 
-public class UIMapRenderTest extends JPanel implements Runnable{
+public class UITestMapRender extends JPanel implements Runnable{
 	protected JFrame mainWindow;
 	protected JTextPane inputPane;
 	
@@ -32,7 +32,7 @@ public class UIMapRenderTest extends JPanel implements Runnable{
 	
 	protected ArrayList<WireFrame2D> renderList = new ArrayList<WireFrame2D>();
 	
-	public UIMapRenderTest() {
+	public UITestMapRender() {
 		
 		mainWindow = new JFrame();
 		mainWindow.setSize(600, 550);

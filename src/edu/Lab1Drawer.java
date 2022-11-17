@@ -2,7 +2,7 @@ package edu;
 
 import java.awt.Graphics;
 
-import UI.UIMapRenderTest;
+import UI.UITestMapRender;
 import UI.InputHandlers.CommandPromptInputHandler;
 import data.forms.WireFrame2D;
 import data.shapes.WireArrow;
@@ -12,7 +12,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Polygon;
 
-public class Lab1Drawer extends UIMapRenderTest {
+public class Lab1Drawer extends UITestMapRender {
 	
 	double scaleMod;
 	

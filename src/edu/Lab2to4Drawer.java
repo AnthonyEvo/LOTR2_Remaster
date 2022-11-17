@@ -3,9 +3,9 @@ package edu;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import UI.UIMapRenderTest;
+import UI.UITestMapRender;
 
-public class Lab2to4Drawer extends UIMapRenderTest {
+public class Lab2to4Drawer extends UITestMapRender {
 
 	double scaleMod;
 	
