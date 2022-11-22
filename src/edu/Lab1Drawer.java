@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import UI.UITestMapRender;
 import UI.InputHandlers.CommandPromptInputHandler;
 import data.forms.WireFrame2D;
-import data.shapes.WireArrow;
+import data.shapes2D.WireArrow;
 import data.units.*;
 
 import java.awt.Color;

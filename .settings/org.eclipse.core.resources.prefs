@@ -2,4 +2,5 @@ eclipse.preferences.version=1
 encoding//src/UI/InputHandlers/Commands/DrawTriangle.java=UTF-8
 encoding//src/UI/Listeners/CommandPromptListener.java=UTF-8
 encoding//src/UI/Listeners/MapTestKeyListener.java=UTF-8
+encoding//src/edu/Deadlock.java=UTF-8
 encoding//src/edu/Lab1Drawer.java=UTF-8

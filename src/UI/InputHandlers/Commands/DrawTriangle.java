@@ -3,7 +3,7 @@ package UI.InputHandlers.Commands;
 import java.util.ArrayList;
 
 import data.forms.WireFrame2D;
-import data.shapes.WireTriangle;
+import data.shapes2D.WireTriangle;
 import data.units.Vector2D;
 
 public class DrawTriangle extends BasicCommand{

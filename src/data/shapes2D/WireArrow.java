@@ -1,4 +1,4 @@
-package data.shapes;
+package data.shapes2D;
 
 import data.forms.WireFrame2D;
 

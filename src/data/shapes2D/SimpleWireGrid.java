@@ -1,4 +1,4 @@
-package data.shapes;
+package data.shapes2D;
 
 public class SimpleWireGrid {
 
