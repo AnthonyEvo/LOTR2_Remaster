@@ -2,7 +2,6 @@ package data.forms;
 
 import java.util.ArrayList;
 import java.awt.Color;
-import java.awt.Polygon;
 
 import data.units.Vector2;
 import data.units.Vector2D;

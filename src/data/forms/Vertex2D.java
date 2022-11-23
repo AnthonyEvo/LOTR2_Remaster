@@ -11,6 +11,7 @@ public class Vertex2D {
 	private ArrayList<SubVertex> subvertexList = new ArrayList<SubVertex>();
 	
 	public Vertex2D(int num, Vector2 position) {
+		
 		vertexNum = num;
 		vertexPosition = position;
 	}
@@ -20,6 +21,7 @@ public class Vertex2D {
 	public Vector2 getPosition() {return vertexPosition; }
 			
 	public double getRadius() {
+		
 		return vertexPosition.getRadius();
 	}
 	
@@ -54,6 +56,7 @@ public class Vertex2D {
 		Vector2 begin;
 		
 		SubVertex(Vector2 begin, Vector2 end, int num) {
+			
 			super(end);
 			this.begin = begin;
 			linkMarker = num;

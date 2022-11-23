@@ -16,7 +16,7 @@ public class Vector3D extends Vector3 {
 	
 	@Override
 	public Vector3 normalize() {
-		return getVector3().normalize();
+		return this.getVector3().normalize();
 	}
 	
 	public Vector3 getBegin() {return super.getVector3();}
