@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import data.forms.WireFrame2D;
+import data.forms.WireFrame3D;
 import data.shapes2D.Triangle;
 import data.units.Vector2D;
 
@@ -23,7 +24,7 @@ public class SetElementColor extends BasicCommand{
 	}
 	
 	@Override
-	public void makeAction(ArrayList<WireFrame2D> shapes) {
+	public void makeAction(ArrayList<WireFrame3D> shapes, int a) {
 		System.out.println("Making actions");
 		
 		if(registeredParameters.get(0).isActive()) {
@@ -35,7 +36,6 @@ public class SetElementColor extends BasicCommand{
 				));
 			});
 		}
-		
-		super.makeAction(shapes);
+		super.makeAction(shapes, a);
 	}
 }

@@ -11,12 +11,17 @@ public class Polygon3D {
 	Vector3 faceDirection;
 	Vertex3D vertex1, vertex2, vertex3;
 	
-	public Polygon3D(Vertex3D vertex1, Vertex3D vertex2, Vertex3D vertex3, Color color) {
+	int polygonNum;
+	
+	public Polygon3D(Vertex3D vertex1, Vertex3D vertex2, Vertex3D vertex3, Color color, int num) {
 		this.vertex1 = vertex1;
 		this.vertex2 = vertex2;
 		this.vertex3 = vertex3;
 		polygonColor = color;
+		polygonNum = num;
 	}
+	
+	public int getPolygonNum() { return polygonNum; }
 	
 	public Vector3 getDirection() {
 		return Vector3.multiplyVectors(

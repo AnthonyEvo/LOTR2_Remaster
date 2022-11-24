@@ -18,7 +18,7 @@ public class WireFrame3D {
 	protected EulerSequence currentSeq;
 	protected Vector3 axis;
 	protected Origin3 origin;
-	protected int vertexNum, edgeNum;
+	protected int vertexNum = 0, edgeNum = 0, polygonNum = 0;
 	protected Color facesColor = Color.lightGray, edgesColor = Color.black;
 	
 	public WireFrame3D(String name) {
@@ -94,7 +94,8 @@ public class WireFrame3D {
 	}
 	
 	public void createPolygon(int vertex1, int vertex2, int vertex3) {
-		polygonList.add(new Polygon3D(vertexList.get(vertex1), vertexList.get(vertex2), vertexList.get(vertex3), facesColor));
+		polygonList.add(new Polygon3D(vertexList.get(vertex1), vertexList.get(vertex2), vertexList.get(vertex3), facesColor, polygonNum));
+		polygonNum++;
 	}
 	
 	public Vector3 getPolygonOrientation(Polygon3D polygon) {

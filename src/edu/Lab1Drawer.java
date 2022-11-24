@@ -40,7 +40,7 @@ public class Lab1Drawer extends UITestMapRender {
 	public void draw3DShape(Graphics g, WireFrame3D shape) {
 				
 		for(int i = 0; i < shape.getFaces().size(); i++) {
-			double faceSlope = WireFrame3D.getAngleBetweenVectors(new Vector3(0,0,1), shape.getPolygonOrientation(shape.getFaces().get(i)));
+			double faceSlope = WireFrame3D.getAngleBetweenVectors(new Vector3(0, 0, 1), shape.getPointPosition(shape.getFaces().get(i).getNormal().normalize(), false));
 			
 			g.setColor(shape.getFaces().get(i).getColibratedColor(faceSlope));
 			
@@ -59,7 +59,7 @@ public class Lab1Drawer extends UITestMapRender {
 		}
 		
 		
-		for(int i = 0; i < shape.getEdges().size(); i++) {
+/*		for(int i = 0; i < shape.getEdges().size(); i++) {
 			
 				g.setColor(shape.getEdgesColor());
 		
@@ -68,7 +68,7 @@ public class Lab1Drawer extends UITestMapRender {
 						(int)(shape.getPointPosition(shape.getEdges().get(i).getEnd(), true).getX() * scaleMod) + tempHorizontalMapShift, 
 						(int)(shape.getPointPosition(shape.getEdges().get(i).getEnd(), true).getY() * scaleMod) + tempVerticalMapShift);
 			
-		}
+		}*/
 	}
 	
 	public void draw3DMarking(Graphics g, WireFrame3D shape) {
@@ -77,8 +77,8 @@ public class Lab1Drawer extends UITestMapRender {
 			g.setColor(Color.green);
 			
 			g.drawOval(
-				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getBegin(), true).getX() * scaleMod) + tempHorizontalMapShift - 1,
-				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getBegin(), true).getY() * scaleMod) + tempVerticalMapShift, 
+				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getBegin(), true).getX() * scaleMod) + tempHorizontalMapShift - 2,
+				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getBegin(), true).getY() * scaleMod) + tempVerticalMapShift - 2, 
 				3,3
 			);
 			
@@ -87,6 +87,12 @@ public class Lab1Drawer extends UITestMapRender {
 				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getBegin(), true).getY() * scaleMod) + tempVerticalMapShift, 
 				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getEnd(), true).getX() * scaleMod) + tempHorizontalMapShift, 
 				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getEnd(), true).getY() * scaleMod) + tempVerticalMapShift
+			);
+			
+			g.drawString(
+					shape.getFaces().get(i).getPolygonNum() + "",
+				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getBegin(), true).getX() * scaleMod) + tempHorizontalMapShift + 1,
+				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getBegin(), true).getY() * scaleMod) + tempVerticalMapShift + 1
 			);
 		}
 	}

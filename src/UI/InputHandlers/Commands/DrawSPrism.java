@@ -3,7 +3,6 @@ package UI.InputHandlers.Commands;
 import java.util.ArrayList;
 
 import data.forms.WireFrame3D;
-import data.shapes3D.Pyramid4E;
 import data.shapes3D.SpecialPrism;
 
 public class DrawSPrism extends BasicCommand {

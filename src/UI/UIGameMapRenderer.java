@@ -15,7 +15,7 @@ public class UIGameMapRenderer extends JPanel {
 		
 	UIGameMapRenderer() {
 		
-		Polygon3D polygon = new Polygon3D(new Vertex3D(0, new Vector3(10,10,0)), new Vertex3D(1, new Vector3(-10,-10,0)), new Vertex3D(2, new Vector3(0,0,10)), Color.gray);
+		Polygon3D polygon = new Polygon3D(new Vertex3D(0, new Vector3(10,10,0)), new Vertex3D(1, new Vector3(-10,-10,0)), new Vertex3D(2, new Vector3(0,0,10)), Color.gray, 0);
 		
 		System.out.println(polygon.getNormal().getBegin().getX() + " " + polygon.getNormal().getBegin().getY() + " " + polygon.getNormal().getBegin().getZ() );
 		System.out.println(polygon.getNormal().getEnd().getX() + " " + polygon.getNormal().getEnd().getY() + " " + polygon.getNormal().getEnd().getZ() );
