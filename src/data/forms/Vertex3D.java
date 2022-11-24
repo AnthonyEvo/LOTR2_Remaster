@@ -5,6 +5,7 @@ import data.units.Vector3;
 public class Vertex3D {
 	
 	private final int vertexNum;
+	String name = "";
 	
 	Vector3 position;
 	
@@ -17,6 +18,14 @@ public class Vertex3D {
 	
 	public Vector3 getPosition() {
 		return position;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public double getX() { return position.getX(); }

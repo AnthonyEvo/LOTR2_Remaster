@@ -17,6 +17,9 @@ public class Arrow3D extends WireFrame3D {
 			this.createVertex(new Vector3(50, 0, 0));
 			this.createVertex(new Vector3(45, 5, 0));
 			this.createVertex(new Vector3(45, -5, 0));
+			
+			vertexList.get(1).setName("Y");
+			
 			this.createEdge(0, 1);
 			this.createEdge(1, 2);
 			this.createEdge(1, 3);
@@ -30,6 +33,9 @@ public class Arrow3D extends WireFrame3D {
 			this.createVertex(new Vector3(0, 50, 0));
 			this.createVertex(new Vector3(5, 45, 0));
 			this.createVertex(new Vector3(-5, 45, 0));
+			
+			vertexList.get(1).setName("X");
+			
 			this.createEdge(0, 1);
 			this.createEdge(1, 2);
 			this.createEdge(1, 3);
@@ -43,6 +49,9 @@ public class Arrow3D extends WireFrame3D {
 			this.createVertex(new Vector3(0, 0, 50));
 			this.createVertex(new Vector3(5, 0, 45));
 			this.createVertex(new Vector3(-5, 0, 45));
+			
+			vertexList.get(1).setName("Z");
+			
 			this.createEdge(0, 1);
 			this.createEdge(1, 2);
 			this.createEdge(1, 3);

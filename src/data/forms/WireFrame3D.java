@@ -78,11 +78,13 @@ public class WireFrame3D {
 		vertexNum++;
 	}
 	
-	public ArrayList<Vector3> getVertexPositionsList() {
+	public ArrayList<Vector3> getVertexPositionsListAsVector() {
 		ArrayList<Vector3> temp = new ArrayList<Vector3>();
 		vertexList.stream().forEach(item -> temp.add(item.getPosition()));
 		return temp;
 	}
+	
+	public ArrayList<Vertex3D> getVertexPositionsList() { return vertexList; }
 	
 	public void createEdge(int vertex1, int vertex2) {
 		edgeList.add(new Edge3D(edgeNum, vertexList.get(vertex1), vertexList.get(vertex2)));

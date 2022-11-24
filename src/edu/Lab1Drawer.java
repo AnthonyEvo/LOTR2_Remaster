@@ -105,6 +105,15 @@ public class Lab1Drawer extends UITestMapRender {
 				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getBegin(), true).getY() * scaleMod) + tempVerticalMapShift + 1
 			);
 		}
+		
+		for(int i = 0; i < shape.getVertexPositionsList().size(); i++) {
+			g.setColor(shape.getEdgesColor());
+			g.drawString(
+				shape.getVertexPositionsList().get(i).getName(),
+				(int)(shape.getPointPosition(shape.getVertexPositionsListAsVector().get(i), true).getX() * scaleMod) + tempHorizontalMapShift + 1,
+				(int)(shape.getPointPosition(shape.getVertexPositionsListAsVector().get(i), true).getY() * scaleMod) + tempVerticalMapShift + 12
+			);
+		}
 	}
 	
 	public void draw2DShape(Graphics g, WireFrame2D shape) {
