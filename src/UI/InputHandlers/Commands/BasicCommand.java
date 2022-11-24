@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import UI.InputHandlers.RecognizedParameter;
 import data.forms.WireFrame2D;
+import data.forms.WireFrame3D;
 
 public abstract class BasicCommand {
 	
@@ -45,12 +46,13 @@ public abstract class BasicCommand {
 				for(int i = 0; i < parameter.getValues().length; i++) {
 					try {
 						item.setParameter(i, parameter.getValues()[i]);
-						item.activate();
 					}
 					catch(Exception Ex) { break; }  
 				}
+				item.activate();
 			} else { System.out.println("Activation of: " + parameter.getName() + " skiped");}
 			System.out.println(item.getParameterName() + " activation state: " + item.isActive());
+			
 		});
 		
 		
@@ -61,6 +63,10 @@ public abstract class BasicCommand {
 	}
 	
 	public void makeAction(ArrayList<WireFrame2D> shapes) { 
+		registeredParameters.stream().forEach(item -> item.disactivate());
+	}
+	
+	public void makeAction(ArrayList<WireFrame3D> shapes, int a) { 
 		registeredParameters.stream().forEach(item -> item.disactivate());
 	}
 	

@@ -7,25 +7,30 @@ import javax.swing.plaf.basic.BasicComboBoxUI.ItemHandler;
 import UI.InputHandlers.Commands.*;
 import UI.Listeners.CommandPromptListener;
 import data.forms.WireFrame2D;
+import data.forms.WireFrame3D;
 
 public class CommandPromptInputHandler {
 
 	CommandPromptListener attachedListener;
 	JTextPane attachedTextPane;
-	ArrayList<WireFrame2D> attachedShapes;
+	ArrayList<WireFrame2D> attached2DShapes;
+	ArrayList<WireFrame3D> attached3DShapes;
 	
 	ArrayList<BasicCommand> registredCommands = new ArrayList<BasicCommand>();
 	
 	boolean isCommandHandled = false;
 	
-	public CommandPromptInputHandler(ArrayList<WireFrame2D> shapes, CommandPromptListener listener, JTextPane textPane) {
+	public CommandPromptInputHandler(ArrayList<WireFrame2D> shapes2D, ArrayList<WireFrame3D> shapes3D, CommandPromptListener listener, JTextPane textPane) {
 		attachedListener = listener;
 		attachedTextPane = textPane;
-		attachedShapes = shapes;
+		attached2DShapes = shapes2D;
+		attached3DShapes = shapes3D;
 		
 		registredCommands.add(new DrawTriangle());
 		registredCommands.add(new Remove());
 		registredCommands.add(new SetElementColor());
+		registredCommands.add(new DrawPyramid());
+		registredCommands.add(new SetAngle());
 	}
 	
 	public void checkListeners() {
@@ -62,9 +67,10 @@ public class CommandPromptInputHandler {
 		registredCommands.stream().forEach(item -> { 
 			if(item.getName().equals(commandName)) {
 				for(RecognizedParameter param : recognizedCommand) {
-					item.activateParameter(param);				
+					item.activateParameter(param);
 				}
-				item.makeAction(attachedShapes);
+				item.makeAction(attached2DShapes);
+				item.makeAction(attached3DShapes, 0);
 			} 
 		});
 		isCommandHandled = true;

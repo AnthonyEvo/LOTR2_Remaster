@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import UI.UITestMapRender;
 import UI.InputHandlers.CommandPromptInputHandler;
 import data.forms.WireFrame2D;
+import data.forms.WireFrame3D;
 import data.shapes2D.WireArrow;
 import data.units.*;
 
@@ -28,18 +29,50 @@ public class Lab1Drawer extends UITestMapRender {
 		scaleMod = mapTestMouseListener.getScaleModifier();
 		super.paintComponent(G);
 		drawTwoLayerGrid(G);
-		drawPoly(G, new WireArrow("Coordinate Arrow Y", Math.PI/2, true), Direction.front.getDirectionColor());
-		drawPoly(G, new WireArrow("Coordinate Arrow X", 0, true), Direction.right.getDirectionColor());
-		renderList.stream().forEach(item -> {drawPoly(G,item);});
-		renderList.stream().forEach(item -> {drawMarking(G,item, false);});
+		draw2DShape(G, new WireArrow("Coordinate Arrow Y", Math.PI/2, true), Direction.front.getDirectionColor());
+		draw2DShape(G, new WireArrow("Coordinate Arrow X", 0, true), Direction.right.getDirectionColor());
+		renderList2D.stream().forEach(item -> { draw2DShape(G,item); });
+		renderList2D.stream().forEach(item -> { drawMarking(G,item, false);});
+		renderList3D.stream().forEach(item -> { draw3DShape(G,item); });
 	}
 	
-	public void drawPoly(Graphics g, WireFrame2D shape) {
+	public void draw3DShape(Graphics g, WireFrame3D shape) {
+		
+
+		System.out.println("Face list length of " + shape.getName() + ": " + shape.getEdges().size());
+		
+/*		for(int i = 0; i < shape.getEdges().size(); i++) {
+			g.setColor(shape.getColor());
+			
+			Polygon polygon = new Polygon();
+			for(Vector3 pos : shape.getPoligonVertexesPositions(i)) {
+				polygon.addPoint(
+					(int)(pos.getX() * scaleMod  + tempHorizontalMapShift), 
+					(int)(pos.getY() * scaleMod + tempVerticalMapShift)
+				);
+			}
+			g.fillPolygon(polygon);
+		}
+		*/
+		
+		for(int i = 0; i < shape.getEdges().size(); i++) {
+			
+				g.setColor(shape.getColor());
+		
+				g.drawLine((int)(shape.getPointPosition(shape.getEdges().get(i).getBegin()).getX() * scaleMod) + tempHorizontalMapShift, 
+						(int)(shape.getPointPosition(shape.getEdges().get(i).getBegin()).getY() * scaleMod) + tempVerticalMapShift, 
+						(int)(shape.getPointPosition(shape.getEdges().get(i).getEnd()).getX() * scaleMod) + tempHorizontalMapShift, 
+						(int)(shape.getPointPosition(shape.getEdges().get(i).getEnd()).getY() * scaleMod) + tempVerticalMapShift);
+			
+		}
+	}
+	
+	public void draw2DShape(Graphics g, WireFrame2D shape) {
 		Color defaultColor = Color.black;
-		drawPoly(g, shape, defaultColor);
+		draw2DShape(g, shape, defaultColor);
 	}
 	
-	public void drawPoly(Graphics g, WireFrame2D shape, Color color) {
+	public void draw2DShape(Graphics g, WireFrame2D shape, Color color) {
 		
 		System.out.println("Face list length of " + shape.getName() + ": " + shape.getFaceList().size());
 		

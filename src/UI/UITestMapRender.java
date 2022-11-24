@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import UI.InputHandlers.CommandPromptInputHandler;
 import UI.Listeners.*;
 import data.forms.WireFrame2D;
+import data.forms.WireFrame3D;
+import data.units.Origin3;
 
 public class UITestMapRender extends JPanel implements Runnable{
 	protected JFrame mainWindow;
@@ -20,6 +22,8 @@ public class UITestMapRender extends JPanel implements Runnable{
 	double stepSizeWidth, stepSizeHeight, rawNum, rawMiddle;
 	protected double viewportAngle = 0, tempViewportAngle = viewportAngle;
 	protected double minViewportAngle = 0, maxViewportAngle = 90;
+	protected Origin3 positionModifier = new Origin3(), 
+					temppositionModifier = new Origin3();
 	
 	protected int horizontalMapShift = 20, tempHorizontalMapShift = horizontalMapShift;
 	protected int verticalMapShift = 10, tempVerticalMapShift = verticalMapShift;
@@ -30,7 +34,8 @@ public class UITestMapRender extends JPanel implements Runnable{
 	
 	protected CommandPromptInputHandler cpInputHandler;
 	
-	protected ArrayList<WireFrame2D> renderList = new ArrayList<WireFrame2D>();
+	protected ArrayList<WireFrame2D> renderList2D = new ArrayList<WireFrame2D>();
+	protected ArrayList<WireFrame3D> renderList3D = new ArrayList<WireFrame3D>();
 	
 	public UITestMapRender() {
 		
@@ -53,7 +58,7 @@ public class UITestMapRender extends JPanel implements Runnable{
 		this.addKeyListener(mapTestKeyListener.attachListener());
 		inputPane.addKeyListener(CPKeyListener.attachListener());
 		
-		cpInputHandler = new CommandPromptInputHandler(renderList, CPKeyListener, inputPane);
+		cpInputHandler = new CommandPromptInputHandler(renderList2D, renderList3D, CPKeyListener, inputPane);
 		
 		mainWindow.add(this);
 		this.setFocusable(true);
@@ -130,9 +135,12 @@ public class UITestMapRender extends JPanel implements Runnable{
 		try {
 			while(true) {
 				Thread.sleep(16);
-				if(mapTestMouseListener.isMapDraged() && mapTestKeyListener.isShiftPressed()) { setViewportAngle(); }
-				if(mapTestMouseListener.isMapDraged() && !mapTestKeyListener.isShiftPressed()) setFocusPosition();
-				if(mapTestMouseListener.isScaleChanged()) { /*setViewportAngle()*/this.repaint(); }
+				if(mapTestMouseListener.isMapDraged() && mapTestKeyListener.isShiftPressed()) { 
+					setViewportAngle();
+				}
+				
+				if(mapTestMouseListener.isMapDraged() && !mapTestKeyListener.isShiftPressed()) { setFocusPosition(); }
+				if(mapTestMouseListener.isScaleChanged()) { this.repaint(); }
 				if(!mapTestMouseListener.isM1Pressed()) { 
 					viewportAngle = tempViewportAngle;
 					horizontalMapShift = tempHorizontalMapShift;
@@ -142,7 +150,7 @@ public class UITestMapRender extends JPanel implements Runnable{
 				}
 				cpInputHandler.checkListeners();
 				if(cpInputHandler.commandUsed()) repaint();
-				renderList.stream().forEach(item -> item.setAngle(tempViewportAngle, false));
+				renderList2D.stream().forEach(item -> item.setAngle(tempViewportAngle, false));
 			}
 		} catch (InterruptedException Ex) { }
 	}

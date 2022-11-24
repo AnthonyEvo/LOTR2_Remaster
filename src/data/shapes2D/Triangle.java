@@ -4,12 +4,12 @@ import data.forms.WireFrame2D;
 import data.units.Vector2;
 import data.units.Vector2D;
 
-public class WireTriangle extends WireFrame2D{
-	public WireTriangle(Vector2 position, double direction, boolean isRad) {
+public class Triangle extends WireFrame2D{
+	public Triangle(Vector2 position, double direction, boolean isRad) {
 		super("Triangle", 0, isRad);
 	}
 	
-	public WireTriangle(Vector2D line) {
+	public Triangle(Vector2D line) {
 		super("Triangle", 0, false);
 		setPosition(line.getMiddle());
 		buildWireFrame(new Vector2D(Vector2.subtractVector2(new Vector2(0, 0), Vector2.divideVector2(line.getVector2(), 2)), Vector2.divideVector2(line.getVector2(), 2)));

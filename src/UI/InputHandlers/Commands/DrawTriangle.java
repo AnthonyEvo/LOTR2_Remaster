@@ -3,7 +3,7 @@ package UI.InputHandlers.Commands;
 import java.util.ArrayList;
 
 import data.forms.WireFrame2D;
-import data.shapes2D.WireTriangle;
+import data.shapes2D.Triangle;
 import data.units.Vector2D;
 
 public class DrawTriangle extends BasicCommand{
@@ -30,7 +30,7 @@ public class DrawTriangle extends BasicCommand{
 		
 		if(registeredParameters.get(1).isActive()) {
 			double[] facing = registeredParameters.get(1).getValues();
-			shapes.add(new WireTriangle(new Vector2D(facing[0], facing[1], facing[2], facing[3])));
+			shapes.add(new Triangle(new Vector2D(facing[0], facing[1], facing[2], facing[3])));
 		}
 		
 		super.makeAction(shapes);
