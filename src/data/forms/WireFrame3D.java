@@ -20,12 +20,16 @@ public class WireFrame3D {
 	protected Origin3 origin;
 	protected int vertexNum = 0, edgeNum = 0, polygonNum = 0;
 	protected Color facesColor = Color.lightGray, edgesColor = Color.black;
+	protected boolean wireframe = true, polygons = true;
 	
 	public WireFrame3D(String name) {
 		shapeName = name;
 		axis = new Vector3();
 		origin = new Origin3();
 	}
+	
+	public boolean isWireframeNeeded() { return wireframe; }
+	public boolean isPolyNeeded() { return polygons; }
 	
 	public String getName() { return shapeName; }
 	

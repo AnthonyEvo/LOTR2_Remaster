@@ -39,36 +39,39 @@ public class Lab1Drawer extends UITestMapRender {
 	
 	public void draw3DShape(Graphics g, WireFrame3D shape) {
 				
-		for(int i = 0; i < shape.getFaces().size(); i++) {
-			double faceSlope = WireFrame3D.getAngleBetweenVectors(new Vector3(0, 0, 1), shape.getPointPosition(shape.getFaces().get(i).getNormal().normalize(), false));
-			
-			g.setColor(shape.getFaces().get(i).getColibratedColor(faceSlope));
-			
-			if(faceSlope < Math.PI / 2) {
-//				System.out.println("Polygon " + i + " drawn. " + WireFrame3D.getAngleBetweenVectors(new Vector3(0,0,1), shape.getPolygonOrientation(shape.getFaces().get(i))));
-				Polygon polygon = new Polygon();
-				for(Vector3 pos : shape.getFaces().get(i).getFaceVertexes()) {
-					polygon.addPoint(
-						(int)((shape.getPointPosition(pos, true)).getX() * scaleMod  + tempHorizontalMapShift), 
-						(int)((shape.getPointPosition(pos, true)).getY() * scaleMod + tempVerticalMapShift)
-					);
+		if(shape.isPolyNeeded()) {
+			for(int i = 0; i < shape.getFaces().size(); i++) {
+				double faceSlope = WireFrame3D.getAngleBetweenVectors(new Vector3(0, 0, 1), shape.getPointPosition(shape.getFaces().get(i).getNormal().normalize(), false));
+				
+				g.setColor(shape.getFaces().get(i).getColibratedColor(faceSlope));
+				
+				if(faceSlope < Math.PI / 2) {
+	//				System.out.println("Polygon " + i + " drawn. " + WireFrame3D.getAngleBetweenVectors(new Vector3(0,0,1), shape.getPolygonOrientation(shape.getFaces().get(i))));
+					Polygon polygon = new Polygon();
+					for(Vector3 pos : shape.getFaces().get(i).getFaceVertexes()) {
+						polygon.addPoint(
+							(int)((shape.getPointPosition(pos, true)).getX() * scaleMod  + tempHorizontalMapShift), 
+							(int)((shape.getPointPosition(pos, true)).getY() * scaleMod + tempVerticalMapShift)
+						);
+					}
+					g.fillPolygon(polygon);
 				}
-				g.fillPolygon(polygon);
+	//			else { System.out.println("Polygon " + i + " drawing skiped " + faceSlope); }
 			}
-//			else { System.out.println("Polygon " + i + " drawing skiped " + faceSlope); }
 		}
 		
-		
-/*		for(int i = 0; i < shape.getEdges().size(); i++) {
+		if(shape.isWireframeNeeded()) {
+			for(int i = 0; i < shape.getEdges().size(); i++) {
+				
+					g.setColor(shape.getEdgesColor());
 			
-				g.setColor(shape.getEdgesColor());
-		
-				g.drawLine((int)(shape.getPointPosition(shape.getEdges().get(i).getBegin(), true).getX() * scaleMod) + tempHorizontalMapShift, 
-						(int)(shape.getPointPosition(shape.getEdges().get(i).getBegin(), true).getY() * scaleMod) + tempVerticalMapShift, 
-						(int)(shape.getPointPosition(shape.getEdges().get(i).getEnd(), true).getX() * scaleMod) + tempHorizontalMapShift, 
-						(int)(shape.getPointPosition(shape.getEdges().get(i).getEnd(), true).getY() * scaleMod) + tempVerticalMapShift);
-			
-		}*/
+					g.drawLine((int)(shape.getPointPosition(shape.getEdges().get(i).getBegin(), true).getX() * scaleMod) + tempHorizontalMapShift, 
+							(int)(shape.getPointPosition(shape.getEdges().get(i).getBegin(), true).getY() * scaleMod) + tempVerticalMapShift, 
+							(int)(shape.getPointPosition(shape.getEdges().get(i).getEnd(), true).getX() * scaleMod) + tempHorizontalMapShift, 
+							(int)(shape.getPointPosition(shape.getEdges().get(i).getEnd(), true).getY() * scaleMod) + tempVerticalMapShift);
+				
+			}
+		}
 	}
 	
 	public void draw3DMarking(Graphics g, WireFrame3D shape) {

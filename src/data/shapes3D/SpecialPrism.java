@@ -8,6 +8,8 @@ public class SpecialPrism extends WireFrame3D {
 	public SpecialPrism(double modX, double modY, double modZ, double radius) {
 		super("Special prism");
 		
+		wireframe = false;
+		
 		setPosition(new Vector3(modX, modY, modZ));
 		this.createVertex(new Vector3(radius, radius, -radius));
 		this.createVertex(new Vector3(-radius, radius, -radius));
