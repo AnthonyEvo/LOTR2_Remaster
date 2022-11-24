@@ -39,7 +39,7 @@ public class WireFrame3D {
 	
 	public Origin3 getOrientation() { return origin; }
 	
-	public void setColor(Color color) { facesColor = color; }
+	public void setColor(Color color) { facesColor = color; edgesColor = color;}
 	
 	public Color getFacesColor() {return facesColor;}
 	
@@ -55,7 +55,7 @@ public class WireFrame3D {
 		case XYZ:
 			rM[0] = new double[] { cos(b),  sin(b) * sin(g), cos(g) * sin(b) };
 			rM[1] = new double[] { sin(a) * sin(b), cos(a) * cos(g) - cos(b) * sin(a) * sin(g), -cos(a) * sin(g) - cos(b) * cos(g) * sin(a) };
-			rM[2] = new double[] { -cos(a) * sin(b), cos(g) * sin(a) + cos(a) * cos(b) * sin(g), cos(a) * cos(b) * cos(g) - sin(a) * sin(g)};
+			rM[2] = new double[] { -cos(a) * sin(b), cos(g) * sin(a) + cos(a) * cos(b) * sin(g), cos(a) * cos(b) * cos(g) - sin(a) * sin(g) };
 			break;
 		default:
 			break;

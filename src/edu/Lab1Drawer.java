@@ -7,6 +7,7 @@ import UI.InputHandlers.CommandPromptInputHandler;
 import data.forms.WireFrame2D;
 import data.forms.WireFrame3D;
 import data.shapes2D.WireArrow;
+import data.shapes3D.Arrow3D;
 import data.units.*;
 
 import java.awt.Color;
@@ -22,6 +23,10 @@ public class Lab1Drawer extends UITestMapRender {
 		this.setBackground(Color.white);
 		minViewportAngle = -180;
 		maxViewportAngle = 180;
+
+		renderList3D.add(new Arrow3D(Direction.up));
+		renderList3D.add(new Arrow3D(Direction.right));
+		renderList3D.add(new Arrow3D(Direction.front));
 	}
 	
 	@Override
@@ -29,8 +34,10 @@ public class Lab1Drawer extends UITestMapRender {
 		scaleMod = mapTestMouseListener.getScaleModifier();
 		super.paintComponent(G);
 		drawTwoLayerGrid(G);
-		draw2DShape(G, new WireArrow("Coordinate Arrow Y", Math.PI/2, true), Direction.front.getDirectionColor());
-		draw2DShape(G, new WireArrow("Coordinate Arrow X", 0, true), Direction.right.getDirectionColor());
+//		draw2DShape(G, new WireArrow("Coordinate Arrow Y", Math.PI/2, true), Direction.front.getDirectionColor());
+//		draw2DShape(G, new WireArrow("Coordinate Arrow X", 0, true), Direction.right.getDirectionColor());
+		
+		
 		renderList2D.stream().forEach(item -> { draw2DShape(G,item); });
 		renderList2D.stream().forEach(item -> { drawMarking(G,item, false);});
 		renderList3D.stream().forEach(item -> { draw3DShape(G,item); });
