@@ -8,7 +8,7 @@ public class Vertex3D {
 	
 	Vector3 position;
 	
-	Vertex3D(int num, Vector3 position) {
+	public Vertex3D(int num, Vector3 position) {
 		vertexNum = num;
 		this.position = position;
 	}

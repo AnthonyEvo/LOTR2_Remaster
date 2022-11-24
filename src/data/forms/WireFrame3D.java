@@ -13,12 +13,13 @@ public class WireFrame3D {
 	
 	protected ArrayList<Vertex3D> vertexList = new ArrayList<Vertex3D>();
 	protected ArrayList<Edge3D> edgeList = new ArrayList<Edge3D>();
+	protected ArrayList<Polygon3D> polygonList = new ArrayList<Polygon3D>();
 	
 	protected EulerSequence currentSeq;
 	protected Vector3 axis;
 	protected Origin3 origin;
 	protected int vertexNum, edgeNum;
-	protected Color facesColor = Color.black;
+	protected Color facesColor = Color.lightGray, edgesColor = Color.black;
 	
 	public WireFrame3D(String name) {
 		shapeName = name;
@@ -36,9 +37,11 @@ public class WireFrame3D {
 	
 	public void setColor(Color color) { facesColor = color; }
 	
-	public Color getColor() {return facesColor;}
+	public Color getFacesColor() {return facesColor;}
 	
-	public Vector3 getPointPosition(Vector3 vertex) {
+	public Color getEdgesColor() {return edgesColor;}
+	
+	public Vector3 getPointPosition(Vector3 vertex, boolean isGlobal) {
 		
 		double rM[][] = new double[3][];
 		
@@ -58,7 +61,8 @@ public class WireFrame3D {
 		y = rM[1][0] * vertex.getX()  + rM[1][1] * vertex.getY() + rM[1][2] * vertex.getZ();
 		z = rM[2][0] * vertex.getX()  + rM[2][1] * vertex.getY() + rM[2][2] * vertex.getZ();
 		
-		return Vector3.combineVectors(new Vector3(x, y, z), axis);
+		if(isGlobal) return Vector3.combineVectors(new Vector3(x, y, z), axis);
+		else return new Vector3(x, y, z);
 	}
 	
 	public static double cos(double operand) { return Math.cos(operand); }
@@ -87,5 +91,17 @@ public class WireFrame3D {
 		return Math.acos((operand1.getX() * operand2.getX() + operand1.getY() * operand2.getY() + operand1.getZ() * operand2.getZ()) /
 				(Math.sqrt(Math.pow(operand1.getX(), 2) + Math.pow(operand1.getY(), 2) + Math.pow(operand1.getZ(), 2)) * 
 				Math.sqrt(Math.pow(operand2.getX(), 2) + Math.pow(operand2.getY(), 2) + Math.pow(operand2.getZ(), 2))));
+	}
+	
+	public void createPolygon(int vertex1, int vertex2, int vertex3) {
+		polygonList.add(new Polygon3D(vertexList.get(vertex1), vertexList.get(vertex2), vertexList.get(vertex3), facesColor));
+	}
+	
+	public Vector3 getPolygonOrientation(Polygon3D polygon) {
+		return getPointPosition(polygon.getDirection(), false);
+	}
+	
+	public ArrayList<Polygon3D> getFaces() {
+		return polygonList;
 	}
 }

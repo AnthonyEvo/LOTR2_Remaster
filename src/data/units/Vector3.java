@@ -39,6 +39,14 @@ public class Vector3 {
 		);
 	}
 	
+	public static Vector3 multiplyVectors(Vector3 operand1, double operand2) {
+		return new Vector3(
+			operand1.getX() * operand2,
+			operand1.getY() * operand2,
+			operand1.getZ() * operand2
+		);
+	}
+	
 	public static Vector3 combineVectors(Vector3 operand1, Vector3 operand2) {
 		return new Vector3(
 				operand1.getX() + operand2.getX(),

@@ -19,9 +19,18 @@ public class Origin3 {
 		}
 	}
 	
-	public void setAlpha (double angleX) { angleAlpha = angleX; }
-	public void setBeta (double angleY) { angleBeta = angleY; }
-	public void setGamma (double angleZ) { angleGamma = angleZ; }
+	public void setAlpha (double angleX, boolean isRad) { 
+		if(isRad) {	 angleAlpha = angleX; }
+		else { angleAlpha = angleX / Math.PI * 180; }
+	}
+	public void setBeta (double angleY, boolean isRad) { 
+		if(isRad) { angleBeta = angleY; }
+		else { angleBeta = angleY / Math.PI * 180; }
+	}
+	public void setGamma (double angleZ, boolean isRad) { 
+		if(isRad) { angleGamma = angleZ; }
+		else { angleGamma = angleZ / Math.PI * 180; }
+	}
 	
 	public void setOriginAngle(Origin3 origin) {
 		this.angleAlpha = origin.getAlpha();

@@ -34,10 +34,21 @@ public class Vector3D extends Vector3 {
 		);
 	}
 	
+	public static Vector3D multiplyVectors(Vector3D operand1, double operand2) {
+		return new Vector3D(
+			operand1.getBegin(),
+			Vector3.combineVectors(operand1.getBegin(), Vector3.multiplyVectors(operand1.getVector3(), operand2))
+		);
+	}
+	
 	public static Vector3D combineVectors(Vector3D operand1, Vector3D operand2) {
 		return new Vector3D(
 			operand1.getBegin(),
 			Vector3.combineVectors(operand1.getEnd(), operand2.getVector3())
 		);
+	}
+	
+	public static Vector3D getSimilarVector(Vector3D vector, double lengthProcent) {
+		return new Vector3D(vector.getBegin(), Vector3.combineVectors(vector.getBegin(), Vector3.multiplyVectors(vector.normalize(), vector.getDistance() * lengthProcent)));
 	}
 }

@@ -34,36 +34,60 @@ public class Lab1Drawer extends UITestMapRender {
 		renderList2D.stream().forEach(item -> { draw2DShape(G,item); });
 		renderList2D.stream().forEach(item -> { drawMarking(G,item, false);});
 		renderList3D.stream().forEach(item -> { draw3DShape(G,item); });
+		renderList3D.stream().forEach(item -> { draw3DMarking(G,item); });
 	}
 	
 	public void draw3DShape(Graphics g, WireFrame3D shape) {
-		
-
-		System.out.println("Face list length of " + shape.getName() + ": " + shape.getEdges().size());
-		
-/*		for(int i = 0; i < shape.getEdges().size(); i++) {
-			g.setColor(shape.getColor());
+				
+		for(int i = 0; i < shape.getFaces().size(); i++) {
+			double faceSlope = WireFrame3D.getAngleBetweenVectors(new Vector3(0,0,1), shape.getPolygonOrientation(shape.getFaces().get(i)));
 			
-			Polygon polygon = new Polygon();
-			for(Vector3 pos : shape.getPoligonVertexesPositions(i)) {
-				polygon.addPoint(
-					(int)(pos.getX() * scaleMod  + tempHorizontalMapShift), 
-					(int)(pos.getY() * scaleMod + tempVerticalMapShift)
-				);
+			g.setColor(shape.getFaces().get(i).getColibratedColor(faceSlope));
+			
+			if(faceSlope < Math.PI / 2) {
+//				System.out.println("Polygon " + i + " drawn. " + WireFrame3D.getAngleBetweenVectors(new Vector3(0,0,1), shape.getPolygonOrientation(shape.getFaces().get(i))));
+				Polygon polygon = new Polygon();
+				for(Vector3 pos : shape.getFaces().get(i).getFaceVertexes()) {
+					polygon.addPoint(
+						(int)((shape.getPointPosition(pos, true)).getX() * scaleMod  + tempHorizontalMapShift), 
+						(int)((shape.getPointPosition(pos, true)).getY() * scaleMod + tempVerticalMapShift)
+					);
+				}
+				g.fillPolygon(polygon);
 			}
-			g.fillPolygon(polygon);
+//			else { System.out.println("Polygon " + i + " drawing skiped " + faceSlope); }
 		}
-		*/
+		
 		
 		for(int i = 0; i < shape.getEdges().size(); i++) {
 			
-				g.setColor(shape.getColor());
+				g.setColor(shape.getEdgesColor());
 		
-				g.drawLine((int)(shape.getPointPosition(shape.getEdges().get(i).getBegin()).getX() * scaleMod) + tempHorizontalMapShift, 
-						(int)(shape.getPointPosition(shape.getEdges().get(i).getBegin()).getY() * scaleMod) + tempVerticalMapShift, 
-						(int)(shape.getPointPosition(shape.getEdges().get(i).getEnd()).getX() * scaleMod) + tempHorizontalMapShift, 
-						(int)(shape.getPointPosition(shape.getEdges().get(i).getEnd()).getY() * scaleMod) + tempVerticalMapShift);
+				g.drawLine((int)(shape.getPointPosition(shape.getEdges().get(i).getBegin(), true).getX() * scaleMod) + tempHorizontalMapShift, 
+						(int)(shape.getPointPosition(shape.getEdges().get(i).getBegin(), true).getY() * scaleMod) + tempVerticalMapShift, 
+						(int)(shape.getPointPosition(shape.getEdges().get(i).getEnd(), true).getX() * scaleMod) + tempHorizontalMapShift, 
+						(int)(shape.getPointPosition(shape.getEdges().get(i).getEnd(), true).getY() * scaleMod) + tempVerticalMapShift);
 			
+		}
+	}
+	
+	public void draw3DMarking(Graphics g, WireFrame3D shape) {
+		for(int i = 0; i < shape.getFaces().size(); i++) {
+			
+			g.setColor(Color.green);
+			
+			g.drawOval(
+				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getBegin(), true).getX() * scaleMod) + tempHorizontalMapShift - 1,
+				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getBegin(), true).getY() * scaleMod) + tempVerticalMapShift, 
+				3,3
+			);
+			
+			g.drawLine(
+				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getBegin(), true).getX() * scaleMod) + tempHorizontalMapShift, 
+				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getBegin(), true).getY() * scaleMod) + tempVerticalMapShift, 
+				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getEnd(), true).getX() * scaleMod) + tempHorizontalMapShift, 
+				(int)(shape.getPointPosition(shape.getFaces().get(i).getNormal().getEnd(), true).getY() * scaleMod) + tempVerticalMapShift
+			);
 		}
 	}
 	

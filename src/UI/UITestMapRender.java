@@ -23,7 +23,7 @@ public class UITestMapRender extends JPanel implements Runnable{
 	protected double viewportAngle = 0, tempViewportAngle = viewportAngle;
 	protected double minViewportAngle = 0, maxViewportAngle = 90;
 	protected Origin3 positionModifier = new Origin3(), 
-					temppositionModifier = new Origin3();
+					tempPositionModifier = new Origin3();
 	
 	protected int horizontalMapShift = 20, tempHorizontalMapShift = horizontalMapShift;
 	protected int verticalMapShift = 10, tempVerticalMapShift = verticalMapShift;
@@ -108,18 +108,18 @@ public class UITestMapRender extends JPanel implements Runnable{
 	}
 	
 	protected double setViewportAngle() {
-		double tempDragDistance = mapTestMouseListener.listener.getDragVerticalDistance(true); 
+		double tempDragDistance = mapTestMouseListener.listener.getDragVerticalDistance(false); 
 		
 		tempViewportAngle = viewportAngle;
 		
-		if(viewportAngle + tempDragDistance * 90 / this.getHeight() >= minViewportAngle) {
-			if(viewportAngle + tempDragDistance * 90 / this.getHeight() <= maxViewportAngle) {
-				tempViewportAngle += tempDragDistance * 90 / this.getHeight() /*0.25*/;
-			}
-			else { tempViewportAngle = maxViewportAngle;} 
-		} 
-		else { tempViewportAngle = minViewportAngle; }
+		tempPositionModifier.setAlpha(mapTestMouseListener.listener.getDragHorizontalDistance(false) / 3, false);
+		tempPositionModifier.setGamma(mapTestMouseListener.listener.getDragVerticalDistance(false) / 3, false);
 		
+		mapTestMouseListener.listener.getDragVerticalDistance(true);
+		mapTestMouseListener.listener.getDragHorizontalDistance(true);
+		
+		tempViewportAngle += tempDragDistance * 90 / this.getHeight() /*0.25*/;
+			
 		this.repaint();
 		return tempViewportAngle;
 	}
@@ -145,12 +145,16 @@ public class UITestMapRender extends JPanel implements Runnable{
 					viewportAngle = tempViewportAngle;
 					horizontalMapShift = tempHorizontalMapShift;
 					verticalMapShift = tempVerticalMapShift;
+					positionModifier.setOriginAngle(tempPositionModifier);
 				} else {
+					repaint();
 					this.requestFocusInWindow();
 				}
+				
 				cpInputHandler.checkListeners();
 				if(cpInputHandler.commandUsed()) repaint();
 				renderList2D.stream().forEach(item -> item.setAngle(tempViewportAngle, false));
+				
 			}
 		} catch (InterruptedException Ex) { }
 	}
