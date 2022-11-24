@@ -3,7 +3,7 @@ package data.shapes3D;
 import data.forms.WireFrame3D;
 import data.units.Vector3;
 
-public class Pyramid4E extends WireFrame3D{
+public class Pyramid4E extends WireFrame3D {
 	public Pyramid4E(double modX, double modY, double modZ, double radius) {
 		super("Pyramid");
 		

@@ -82,4 +82,10 @@ public class WireFrame3D {
 	}
 	
 	public ArrayList<Edge3D> getEdges() { return edgeList; }
+	
+	public static double getAngleBetweenVectors(Vector3 operand1, Vector3 operand2) {
+		return Math.acos((operand1.getX() * operand2.getX() + operand1.getY() * operand2.getY() + operand1.getZ() * operand2.getZ()) /
+				(Math.sqrt(Math.pow(operand1.getX(), 2) + Math.pow(operand1.getY(), 2) + Math.pow(operand1.getZ(), 2)) * 
+				Math.sqrt(Math.pow(operand2.getX(), 2) + Math.pow(operand2.getY(), 2) + Math.pow(operand2.getZ(), 2))));
+	}
 }

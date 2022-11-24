@@ -31,6 +31,7 @@ public class CommandPromptInputHandler {
 		registredCommands.add(new SetElementColor());
 		registredCommands.add(new DrawPyramid());
 		registredCommands.add(new SetAngle());
+		registredCommands.add(new DrawSPrism());
 	}
 	
 	public void checkListeners() {
