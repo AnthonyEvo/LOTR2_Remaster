@@ -6,7 +6,7 @@ import data.forms.WireFrame2D;
 import data.shapes2D.Triangle;
 import data.units.Vector2D;
 
-public class DrawTriangle extends BasicCommand{
+public class DrawTriangle extends BasicCommand { // Building 2D triangle
 	
 	public DrawTriangle() {
 				

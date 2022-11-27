@@ -9,7 +9,7 @@ import UI.Listeners.CommandPromptListener;
 import data.forms.WireFrame2D;
 import data.forms.WireFrame3D;
 
-public class CommandPromptInputHandler {
+public class CommandPromptInputHandler {	// Main command handler with parcers and command list
 
 	CommandPromptListener attachedListener;
 	JTextPane attachedTextPane;
@@ -67,8 +67,8 @@ public class CommandPromptInputHandler {
 		
 		registredCommands.stream().forEach(item -> { 
 			if(item.getName().equals(commandName)) {
-				for(RecognizedParameter param : recognizedCommand) {
-					item.activateParameter(param);
+				for(int i = 0; i < recognizedCommand.length; i++) {
+					item.activateParameter(recognizedCommand[i]);
 				}
 				item.makeAction(attached2DShapes);
 				item.makeAction(attached3DShapes, 0);
@@ -87,41 +87,39 @@ public class CommandPromptInputHandler {
 	
 	private RecognizedParameter parceParameter(String message, char paramToValueDevider, char valueDevider) {
 		
-		
-		
 		RecognizedParameter temp = new RecognizedParameter("NaN", null);
 		String paramName = "";
-			if(message.contains(paramToValueDevider + "")) {
-				paramName = message.substring(0, message.indexOf(paramToValueDevider));
-				message = message.substring(message.indexOf(paramToValueDevider) + 1);
-				if(message.length() > 0) {
-					double[] values = new double[(int) message.chars().filter(ch -> ch == valueDevider).count() + 1];
-					System.out.println(message);
-					for(int i = 0; i < values.length; i++) {
-						if(message.contains(valueDevider + "")) {
-							try {
-								values[i] = Double.parseDouble(message.substring(0, message.indexOf(valueDevider)));
-								System.out.println("Value " + i + ": " + values[i] + " ");
-								message = message.substring(message.indexOf(valueDevider) + 1);
-							} catch (Exception Ex) {
-								values[i] = 0; System.out.println(Ex.getMessage());
-							}
-						} 
-						else {
-							try {
-								values[i] = Double.parseDouble(message);
-							} catch (Exception Ex) {
-								values[i] = 0;
-							}
+		
+		if(message.contains(paramToValueDevider + "")) {
+			paramName = message.substring(0, message.indexOf(paramToValueDevider));
+			message = message.substring(message.indexOf(paramToValueDevider) + 1);
+			if(message.length() > 0) {
+				double[] values = new double[(int) message.chars().filter(ch -> ch == valueDevider).count() + 1];
+				System.out.println(message);
+				for(int i = 0; i < values.length; i++) {
+					if(message.contains(valueDevider + "")) {
+						try {
+							values[i] = Double.parseDouble(message.substring(0, message.indexOf(valueDevider)));
+							System.out.println("Value " + i + ": " + values[i] + " ");
+							message = message.substring(message.indexOf(valueDevider) + 1);
+						} catch (Exception Ex) {
+							values[i] = 0; System.out.println(Ex.getMessage());
+						}
+					} 
+					else {
+						try {
+							values[i] = Double.parseDouble(message);
+						} catch (Exception Ex) {
+							values[i] = 0;
 						}
 					}
-					
-					temp = new RecognizedParameter(paramName, values);
-				}				
-			} else {
-				paramName = message;
-				temp = new RecognizedParameter(paramName, null);
-			}
+				}
+				temp = new RecognizedParameter(paramName, values);
+			}				
+		} else {
+			paramName = message;
+			temp = new RecognizedParameter(paramName, null);
+		}
 			
 		System.out.println("Param name: " + temp.getName() + " param value: " + temp.getValuesAsString(',') + "\n");
 		return temp;

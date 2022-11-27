@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import data.forms.WireFrame3D;
 import data.shapes3D.SpecialPrism;
 
-public class DrawSPrism extends BasicCommand {
+public class DrawSPrism extends BasicCommand { // Building a prism with pyramid on top
 	public DrawSPrism() {
 		super("draw_sprism", new BasicParameter[] {
 				new BasicParameter("-b", 1, 4)
@@ -31,7 +31,7 @@ public class DrawSPrism extends BasicCommand {
 		shapes.add(new SpecialPrism(facing[0], facing[1], facing[2], facing[3]));
 		
 		System.out.println("3D forms in list: " + shapes.size());
-		super.makeAction(shapes, 0);
+//		super.makeAction(shapes, 0);
 	}
 	
 }

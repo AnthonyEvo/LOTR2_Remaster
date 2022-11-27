@@ -16,54 +16,34 @@ public class MapTestMouseListener implements Runnable{
 		mouseInputListener.start();
 	}
 	
-	public Listener attachListener() {
-		return listener;
-	}
+	public Listener attachListener() { return listener; }
 	
-	public void run() {
-		listener = new Listener();
-	}
+	public void run() { listener = new Listener(); }
 	
 /*	public int getDragVerticalDistance() {
 		return listener.getDragVerticalDistance();
-	}
-*/	
-	public boolean isMapDraged() {
-		return listener.isMapDraged();
-	}
+	}*/
 	
-	public boolean isM1Pressed() {
-		return listener.getM1State();
-	}
+	public boolean isMapDraged() { return listener.isMapDraged(); }
 	
-	public double getScaleModifier() {
-		return listener.getScaleModifier();
-	}
+	public boolean isM1Pressed() { return listener.getM1State(); }
 	
-	public boolean isScaleChanged() {
-		return listener.getScaleState();
-	}
+	public double getScaleModifier() { return listener.getScaleModifier(); }
+	
+	public boolean isScaleChanged() { return listener.getScaleState(); }
 	
 	public class Listener implements MouseInputListener, MouseWheelListener {
 		
 		boolean mapDraged = false, isM1Pressed = false, isScaleChanged = false;
-		
 		private int verticalDraggDistance = 0, horizontalDraggDistance = 0;
 		private int hitY = 0, hitX = 0;
-		
 		private double scaleModifier = 1;
 		
-		public boolean getM1State() {
-			return isM1Pressed;
-		}
+		public boolean getM1State() { return isM1Pressed; }
 		
-		public boolean isMapDraged() {
-			return mapDraged;
-		}
+		public boolean isMapDraged() { return mapDraged; }
 		
-		public boolean getScaleState() {
-			return isScaleChanged;
-		}
+		public boolean getScaleState() { return isScaleChanged; }
 		
 		public int getDragVerticalDistance(boolean dropHorizontal) {
 			int temp = verticalDraggDistance;
@@ -81,13 +61,9 @@ public class MapTestMouseListener implements Runnable{
 			return temp;
 		}
 		
-		public int getHitHighness() {
-			return hitY;
-		}
+		public int getHitHighness() { return hitY; }
 		
-		public int getHitWidthness() {
-			return hitX;
-		}
+		public int getHitWidthness() { return hitX; }
 		
 		public double getScaleModifier() {
 			isScaleChanged = false;
@@ -119,14 +95,10 @@ public class MapTestMouseListener implements Runnable{
 		}
 
 		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-		}
+		public void mouseEntered(MouseEvent e) { }
 
 		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-		}
+		public void mouseExited(MouseEvent e) { }
 
 		@Override
 		public void mouseDragged(MouseEvent e) {
@@ -135,12 +107,9 @@ public class MapTestMouseListener implements Runnable{
 			mapDraged = true;
 //			System.out.println("y = " + verticalDraggDistance); 
 		}
-
+		
 		@Override
-		public void mouseMoved(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+		public void mouseMoved(MouseEvent e) { }
 
 		@Override
 		public void mouseWheelMoved(MouseWheelEvent e) {

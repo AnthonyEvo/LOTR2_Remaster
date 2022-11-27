@@ -41,21 +41,36 @@ public abstract class BasicCommand {
 		
 		System.out.println("Activating: " + parameter.getName());
 		
-		registeredParameters.stream().forEach(item -> {
-			if(item.getParameterName().equals(parameter.getName()) && parameter.getValues() != null) {
+/*		registeredParameters.stream().forEach(item -> {
+			if(item.getParameterName().equals(parameter.getName())) {
 				for(int i = 0; i < parameter.getValues().length; i++) {
+					
 					try {
 						item.setParameter(i, parameter.getValues()[i]);
 					}
-					catch(Exception Ex) { break; }  
+					catch(Exception Ex) { System.out.println("Exception while setting parameters"); break;}  
 				}
 				item.activate();
+				
+				
 			} else { System.out.println("Activation of: " + parameter.getName() + " skiped");}
-			System.out.println(item.getParameterName() + " activation state: " + item.isActive());
 			
-		});
+			System.out.println(item.getParameterName() + " activation state: " + item.isActive());
+		});*/
 		
-		
+		for(int j = 0; j < registeredParameters.size(); j++) {
+			System.out.println(registeredParameters.get(j).getParameterName().equals(parameter.getName()));
+			if(registeredParameters.get(j).getParameterName().equals(parameter.getName())) {
+				for(int i = 0; i < parameter.getValues().length; i++) {
+					try {
+						
+						registeredParameters.get(j).setParameter(i, parameter.getValues()[i]);
+					}
+					catch(Exception Ex) { System.out.println("Exception while setting parameters"); break;}  
+				}
+				registeredParameters.get(j).activate();
+			}
+		}
 	}
 	
 	public void setHelpMessage(String helpMessage) {

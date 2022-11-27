@@ -22,8 +22,7 @@ public class UITestMapRender extends JPanel implements Runnable{
 	double stepSizeWidth, stepSizeHeight, rawNum, rawMiddle;
 	protected double viewportAngle = 0, tempViewportAngle = viewportAngle;
 	protected double minViewportAngle = 0, maxViewportAngle = 90;
-	protected Origin3 positionModifier = new Origin3(), 
-					tempPositionModifier = new Origin3();
+	protected Origin3 positionModifier = new Origin3(), tempPositionModifier = new Origin3();
 	
 	protected int horizontalMapShift = 20, tempHorizontalMapShift = horizontalMapShift;
 	protected int verticalMapShift = 10, tempVerticalMapShift = verticalMapShift;
@@ -113,7 +112,7 @@ public class UITestMapRender extends JPanel implements Runnable{
 		tempViewportAngle = viewportAngle;
 		
 		tempPositionModifier.setAlpha(mapTestMouseListener.listener.getDragHorizontalDistance(false) / 3, false);
-		tempPositionModifier.setGamma(mapTestMouseListener.listener.getDragVerticalDistance(false) / 3, false);
+		tempPositionModifier.setBeta(mapTestMouseListener.listener.getDragVerticalDistance(false) / 3, false);
 		
 		mapTestMouseListener.listener.getDragVerticalDistance(true);
 		mapTestMouseListener.listener.getDragHorizontalDistance(true);

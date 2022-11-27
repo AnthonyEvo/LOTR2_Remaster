@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import data.forms.WireFrame3D;
 import data.shapes3D.Pyramid4E;
 
-public class DrawPyramid extends BasicCommand {
+public class DrawPyramid extends BasicCommand {	// Building a pyramid
 	public DrawPyramid() {
 		super("draw_pyramid", new BasicParameter[] {
 				new BasicParameter("-b", 1, 4)

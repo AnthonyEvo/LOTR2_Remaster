@@ -2,7 +2,7 @@ package data.forms;
 
 import data.units.Vector3;
 
-public class Edge3D {
+public class Edge3D {	// Edge of 3D shape needed for wireframe drawing
 	
 	final int edgeNum;
 	
