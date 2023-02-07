@@ -32,7 +32,6 @@ public class DrawTriangle extends BasicCommand { // Building 2D triangle
 			double[] facing = registeredParameters.get(1).getValues();
 			shapes.add(new Triangle(new Vector2D(facing[0], facing[1], facing[2], facing[3])));
 		}
-		
 		super.makeAction(shapes);
 	}
 	

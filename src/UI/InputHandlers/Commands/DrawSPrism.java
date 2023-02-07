@@ -31,7 +31,7 @@ public class DrawSPrism extends BasicCommand { // Building a prism with pyramid 
 		shapes.add(new SpecialPrism(facing[0], facing[1], facing[2], facing[3]));
 		
 		System.out.println("3D forms in list: " + shapes.size());
-//		super.makeAction(shapes, 0);
+		super.makeAction(shapes, 0);
 	}
 	
 }

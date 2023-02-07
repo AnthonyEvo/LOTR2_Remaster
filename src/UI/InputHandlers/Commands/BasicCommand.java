@@ -63,7 +63,6 @@ public abstract class BasicCommand {
 			if(registeredParameters.get(j).getParameterName().equals(parameter.getName())) {
 				for(int i = 0; i < parameter.getValues().length; i++) {
 					try {
-						
 						registeredParameters.get(j).setParameter(i, parameter.getValues()[i]);
 					}
 					catch(Exception Ex) { System.out.println("Exception while setting parameters"); break;}  

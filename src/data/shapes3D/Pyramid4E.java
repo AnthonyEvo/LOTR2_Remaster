@@ -11,10 +11,10 @@ public class Pyramid4E extends WireFrame3D {
 		
 		setPosition(new Vector3(modX, modY, modZ));
 		
-		this.createVertex(new Vector3(radius, radius, 0));
+		this.createVertex(new Vector3( radius, radius, 0));
 		this.createVertex(new Vector3(-radius, radius, 0));
 		this.createVertex(new Vector3(-radius, -radius, 0));
-		this.createVertex(new Vector3(radius, -radius, 0));
+		this.createVertex(new Vector3( radius, -radius, 0));
 		this.createVertex(new Vector3(0, 0, radius));
 				
 		this.createEdge(0, 1); this.createEdge(1, 2); this.createEdge(2, 3); this.createEdge(3, 0);

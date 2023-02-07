@@ -64,8 +64,7 @@ public class CommandPromptInputHandler {	// Main command handler with parcers an
 		String commandName = recognizedCommand[0].getName();
 		recognizedCommand[0].setName("default");
 		
-		
-		registredCommands.stream().forEach(item -> { 
+/*		registredCommands.stream().forEach(item -> { 
 			if(item.getName().equals(commandName)) {
 				for(int i = 0; i < recognizedCommand.length; i++) {
 					item.activateParameter(recognizedCommand[i]);
@@ -73,7 +72,17 @@ public class CommandPromptInputHandler {	// Main command handler with parcers an
 				item.makeAction(attached2DShapes);
 				item.makeAction(attached3DShapes, 0);
 			} 
-		});
+		});*/
+		
+		for(int i = 0; i < registredCommands.size(); i++) {
+			if(registredCommands.get(i).getName().equals(commandName)) {
+				for(int j = 0; j < recognizedCommand.length; j++) {
+					registredCommands.get(i).activateParameter(recognizedCommand[j]);
+				}
+				registredCommands.get(i).makeAction(attached3DShapes, 0);
+			} 
+		}
+		
 		isCommandHandled = true;
 		System.out.println("Command used: " + commandName + " ");
 		
