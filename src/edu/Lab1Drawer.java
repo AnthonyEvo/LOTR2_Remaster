@@ -114,6 +114,28 @@ public class Lab1Drawer extends UITestMapRender {
 				(int)(shape.getPointPosition(shape.getVertexPositionsListAsVector().get(i), true).getY() * scaleMod) + tempVerticalMapShift + 12
 			);
 		}
+		
+		g.setColor(Color.ORANGE);
+		g.drawLine(
+			(int) (shape.getPointPosition(shape.getMidPoint(), true).getX() * scaleMod) + tempHorizontalMapShift + 4,
+			(int) (shape.getPointPosition(shape.getMidPoint(), true).getY() * scaleMod) + tempVerticalMapShift,
+			(int) (shape.getPointPosition(shape.getMidPoint(), true).getX() * scaleMod) + tempHorizontalMapShift - 4,
+			(int) (shape.getPointPosition(shape.getMidPoint(), true).getY() * scaleMod) + tempVerticalMapShift
+		);
+		
+		g.drawLine(
+			(int) (shape.getPointPosition(shape.getMidPoint(), true).getX() * scaleMod) + tempHorizontalMapShift,
+			(int) (shape.getPointPosition(shape.getMidPoint(), true).getY() * scaleMod) + tempVerticalMapShift + 4,
+			(int) (shape.getPointPosition(shape.getMidPoint(), true).getX() * scaleMod) + tempHorizontalMapShift,
+			(int) (shape.getPointPosition(shape.getMidPoint(), true).getY() * scaleMod) + tempVerticalMapShift - 4
+		);
+		
+		g.drawOval(
+			(int) ((shape.getPointPosition(shape.getMidPoint(), true).getX() - shape.getCollisionRadius()) * scaleMod) + tempHorizontalMapShift,
+			(int) ((shape.getPointPosition(shape.getMidPoint(), true).getY() - shape.getCollisionRadius()) * scaleMod) + tempVerticalMapShift,
+			(int) (shape.getCollisionRadius() * 2 * scaleMod),
+			(int) (shape.getCollisionRadius() * 2 * scaleMod)
+		);
 	}
 	
 	public void draw2DShape(Graphics g, WireFrame2D shape) {

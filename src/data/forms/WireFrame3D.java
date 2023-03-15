@@ -10,12 +10,14 @@ import data.units.Vector3;
 public class WireFrame3D {
 	
 	protected String shapeName = "";
-	
 	protected ArrayList<Vertex3D> vertexList = new ArrayList<Vertex3D>();
 	protected ArrayList<Edge3D> edgeList = new ArrayList<Edge3D>();
 	protected ArrayList<Polygon3D> polygonList = new ArrayList<Polygon3D>();
 	
-	protected Vector3 axis;
+	protected BoundBox boundBox  = new BoundBox();
+	
+	protected Vector3 axis, midPoint = new Vector3();
+	
 	protected Origin3 origin;
 	protected int vertexNum = 0, edgeNum = 0, polygonNum = 0;
 	protected Color facesColor = Color.lightGray, edgesColor = Color.black;
@@ -28,6 +30,7 @@ public class WireFrame3D {
 	}
 	
 	public boolean isWireframeNeeded() { return wireframe; }	// Wireframe flag for renderer, turning on/off render of edges
+	
 	public boolean isPolyNeeded() { return polygons; }		// Polygon flag for renderer, same as previous
 	
 	public String getName() { return shapeName; }	// Interior name of shape
@@ -51,10 +54,16 @@ public class WireFrame3D {
 		double a = origin.getAlpha(), b = origin.getBeta(), g = origin.getGamma();
 		double x = 0, y = 0, z = 0;
 		switch(origin.getOriginSequence()) {
+		
+		case  XZX:
+			rM[0] = new double[] {cos(b), -cos(g) * sin(b), sin(b) * sin(g)};
+			rM[1] = new double[] {cos(a) * sin(b), cos(a) * cos(b) * cos(g) - sin(a) * sin(g), -cos(g) * sin(a) - cos(a) * cos(b) * sin(g)};
+			rM[2] = new double[] {sin(a) * sin(b), cos(a) * sin(g) + cos(b) * cos(g) * sin(a), cos(a) * cos(g) - cos(b) * sin(a) * sin(g)};
+			break;
 		case XYX:
-			rM[0] = new double[] { cos(b),  sin(b) * sin(g), cos(g) * sin(b) };
-			rM[1] = new double[] { sin(a) * sin(b), cos(a) * cos(g) - cos(b) * sin(a) * sin(g), -cos(a) * sin(g) - cos(b) * cos(g) * sin(a) };
-			rM[2] = new double[] { -cos(a) * sin(b), cos(g) * sin(a) + cos(a) * cos(b) * sin(g), cos(a) * cos(b) * cos(g) - sin(a) * sin(g) };
+			rM[0] = new double[] {cos(b),  sin(b) * sin(g), cos(g) * sin(b) };
+			rM[1] = new double[] {sin(a) * sin(b), cos(a) * cos(g) - cos(b) * sin(a) * sin(g), -cos(a) * sin(g) - cos(b) * cos(g) * sin(a)};
+			rM[2] = new double[] {-cos(a) * sin(b), cos(g) * sin(a) + cos(a) * cos(b) * sin(g), cos(a) * cos(b) * cos(g) - sin(a) * sin(g)};
 			break;
 		default:
 			break;
@@ -73,9 +82,15 @@ public class WireFrame3D {
 	public static double sin(double operand) { return Math.sin(operand); }	// ... same as previous 
 	
 	public void createVertex(Vector3 position) {	// Adding vertex to shape
+		
+		boundBox.addVertex(position, vertexList.size());
 		vertexList.add(new Vertex3D(vertexNum, position));
 		vertexNum++;
 	}
+	
+	public Vector3 getMidPoint() { return boundBox.getMidPoint(); }
+	
+	public double getCollisionRadius() { return boundBox.getCollisionRadius(); }
 	
 	public ArrayList<Vector3> getVertexPositionsListAsVector() {	// Return vertices as Vector3 list
 		ArrayList<Vector3> temp = new ArrayList<Vector3>();
@@ -107,5 +122,6 @@ public class WireFrame3D {
 	}
 	
 	public ArrayList<Polygon3D> getFaces() { return polygonList; }	// Getting list of polygons
-		
+	
+	
 }
