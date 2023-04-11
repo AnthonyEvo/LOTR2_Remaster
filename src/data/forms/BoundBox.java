@@ -30,10 +30,19 @@ public class BoundBox {
 	}
 	
 	public double getWidth() { return Math.abs(widthMap.lastKey() - widthMap.firstKey()); }
+
+	public double getRight() { return widthMap.firstKey(); }
+	public double getLeft() {return widthMap.lastKey(); }
 	
 	public double getLength() { return Math.abs(lengthMap.lastKey() - lengthMap.firstKey()); }
 	
+	public double getFront() {return lengthMap.firstKey(); }
+	public double getReare() {return lengthMap.lastKey(); }
+	
 	public double getHeight() { return Math.abs(heightMap.lastKey() - heightMap.firstKey()); }
+	
+	public double getTop() { return heightMap.firstKey(); }
+	public double getBottom() { return heightMap.lastKey(); }
 	
 	public Vector3 getMidPoint() { return midPoint; }
 	

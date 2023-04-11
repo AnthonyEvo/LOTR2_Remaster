@@ -13,7 +13,7 @@ class OktreeDataCell {
 	double cellSize, minimalCellSize;   
 	
 	ArrayDeque<GameObject> celledGObjects;
-	OktreeDataCell[] celles = new OktreeDataCell[8];
+	OktreeDataCell[] celles = new OktreeDataCell[8];  
 	
 	OktreeDataCell(int cellLayer, Vector3 cellPosition, double minimalCellSize) {
 		this.cellLayer = cellLayer;

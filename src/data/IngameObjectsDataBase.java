@@ -1,8 +1,6 @@
 package data;
 
-import java.util.TreeMap;
-
-import data.units.Vector3;
+import data.gameObjects.GameObject;
 
 public class IngameObjectsDataBase {
 	
@@ -12,29 +10,19 @@ public class IngameObjectsDataBase {
 		baseSetID = setID;
 	}
 	
-	public void volumetricSearch() {
+	public void search() {
+		
+	}
+	
+	public void place(GameObject gameObject) {
+		
+	}
+	
+	public void drop() {
 		
 	}
 	
 	public static void main(String args[]) {
 		new OktreeDataBase(3);
 	}
-}
-
-class OktreeDataBase {
-	
-	TreeMap<OktreeDataCell, Vector3> gameSpace = new TreeMap<OktreeDataCell, Vector3>();
-	
-	OktreeDataCell mainCell;
-	
-	double layerDepth, sectorMinSize = 10;
-	public static int ODBdepth;
-	
-	OktreeDataBase(int dbDepth) {
-		ODBdepth = dbDepth;
-		mainCell = new OktreeDataCell(dbDepth, new Vector3(), sectorMinSize);
-	}
-	
-	
-	
 }

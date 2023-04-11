@@ -14,7 +14,26 @@ public class WireFrame3D {
 	protected ArrayList<Edge3D> edgeList = new ArrayList<Edge3D>();
 	protected ArrayList<Polygon3D> polygonList = new ArrayList<Polygon3D>();
 	
+	// --- Wireframe Bound Box ---
+	
 	protected BoundBox boundBox  = new BoundBox();
+	
+	public double getBoundBoxWidth() { return boundBox.getWidth(); }
+
+	public double getBoundBoxRight() { return boundBox.getRight(); }
+	public double getBoundBoxLeft() {return boundBox.getLeft(); }
+	
+	public double getBoundBoxLength() { return boundBox.getLength(); }
+	
+	public double getBoundBoxFront() {return boundBox.getFront(); }
+	public double getBoundBoxReare() {return boundBox.getReare(); }
+	
+	public double getBoundBoxHeight() { return boundBox.getHeight(); }
+	
+	public double getBoundBoxTop() { return boundBox.getTop(); }
+	public double getBoundBoxBottom() { return boundBox.getBottom(); }
+	
+	// --- /Wireframe Bound Box ---
 	
 	protected Vector3 axis, midPoint = new Vector3();
 	
@@ -117,11 +136,9 @@ public class WireFrame3D {
 		polygonNum++;
 	}
 	
-	public Vector3 getPolygonOrientation(Polygon3D polygon) {	// Returning a beginning of normal located on a polygon surface
+	public Vector3 getPolygonOrientation(Polygon3D polygon) {	// Return a beginning of normal located on a polygon surface
 		return getPointPosition(polygon.getDirection(), false);
 	}
 	
 	public ArrayList<Polygon3D> getFaces() { return polygonList; }	// Getting list of polygons
-	
-	
 }
