@@ -6,7 +6,7 @@ import edu.Lab1Drawer;
 public class GameMapConnector {
 	
 	public static void main(String args[]) {
-		
+		new Lab1Drawer();
 	}
 	
 	GameMapConnector() {

@@ -136,7 +136,7 @@ public class WireFrame3D {
 		polygonNum++;
 	}
 	
-	public Vector3 getPolygonOrientation(Polygon3D polygon) {	// Return a beginning of normal located on a polygon surface
+	public Vector3 getPolygonOrientation(Polygon3D polygon) {	// Return an end of normal located on a polygon surface
 		return getPointPosition(polygon.getDirection(), false);
 	}
 	
