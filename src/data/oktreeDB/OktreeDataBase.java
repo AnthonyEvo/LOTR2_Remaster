@@ -1,12 +1,13 @@
-package data;
+package data.oktreeDB;
 
 import java.util.TreeMap;
 
 import data.units.Vector3;
-import data.forms.BoundBox;
+import data.IngameObjectsDataBase;
+import data.IngameObjectsSetID;
 import data.gameObjects.GameObject;
 
-class OktreeDataBase extends IngameObjectsDataBase{
+public class OktreeDataBase extends IngameObjectsDataBase{
 	
 	TreeMap<OktreeDataCell, Vector3> gameSpace = new TreeMap<OktreeDataCell, Vector3>();
 	
@@ -15,14 +16,14 @@ class OktreeDataBase extends IngameObjectsDataBase{
 	double layerDepth, sectorMinSize = 10;
 	public static int ODBdepth;
 	
-	OktreeDataBase(int dbDepth) {
+	public OktreeDataBase(int dbDepth) {
 		super(IngameObjectsSetID.octoTreeToolSet);
 		ODBdepth = dbDepth;
 		mainCell = new OktreeDataCell(dbDepth, new Vector3(), sectorMinSize);
 	}
 	
 	@Override
-	public void place(GameObject gameObject) {
+	synchronized public void place(GameObject gameObject) {
 		
 	}
 	

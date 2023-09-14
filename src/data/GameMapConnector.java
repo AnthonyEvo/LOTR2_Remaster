@@ -13,11 +13,3 @@ public class GameMapConnector {
 		
 	}
 }
-
-interface Habitable {
-	
-}
-
-interface Productionable {
-	
-}

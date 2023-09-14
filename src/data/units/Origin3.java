@@ -32,7 +32,7 @@ public class Origin3 {	// Describes 3 rotation degree of freedom
 		else { angleGamma = angleZ / Math.PI * 180; }
 	}
 	
-	public void setOriginAngle(Origin3 origin) {	// Setting all origin angles throwgh object
+	public void setOriginAngle(Origin3 origin) {	// Setting all origin angles through object
 		this.angleAlpha = origin.getAlpha();
 		this.angleBeta = origin.getBeta();
 		this.angleGamma = origin.getGamma();

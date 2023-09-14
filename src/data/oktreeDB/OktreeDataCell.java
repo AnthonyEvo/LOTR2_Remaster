@@ -1,4 +1,4 @@
-package data;
+package data.oktreeDB;
 
 import java.util.ArrayDeque;
 

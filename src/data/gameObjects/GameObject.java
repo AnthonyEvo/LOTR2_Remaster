@@ -2,18 +2,19 @@ package data.gameObjects;
 
 import data.forms.WireFrame3D;
 import data.units.Origin3;
+
 import data.units.Vector3;
 
 public class GameObject {
 	
-	Origin3 origin;
-	Vector3 axis;
+	String goID;
 	
-	WireFrame3D shapes;
+	Origin3 origin; Vector3 axis;	
+	WireFrame3D shapes; Vector3 impulse;
 	
-	double velocity;
+	double mass;
 	
-	public GameObject() {
-		
+	public GameObject(String goID) {
+		this.goID = goID;
 	}
 }
