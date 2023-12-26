@@ -12,7 +12,7 @@ public class IngameCamera extends GameObject{
 	
 	double cameraViewDistance;
 	
-	IngameCamera() {
-		
+	IngameCamera(String cameraID) {
+		super(cameraID);
 	}
 }

@@ -1,5 +1,7 @@
 package data.oktreeDB;
 
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.TreeMap;
 
 import data.units.Vector3;
@@ -7,19 +9,19 @@ import data.IngameObjectsDataBase;
 import data.IngameObjectsSetID;
 import data.gameObjects.GameObject;
 
-public class OktreeDataBase extends IngameObjectsDataBase{
+public class OktreeDataBase extends IngameObjectsDataBase {
 	
-	TreeMap<OktreeDataCell, Vector3> gameSpace = new TreeMap<OktreeDataCell, Vector3>();
-	
-	OktreeDataCell mainCell;
+	ArrayList<OktreeDataCell> gameSpace = new ArrayList<OktreeDataCell>();
 	
 	double layerDepth, sectorMinSize = 10;
-	public static int ODBdepth;
+	protected static int ODBdepth;
+	double a;
 	
 	public OktreeDataBase(int dbDepth) {
 		super(IngameObjectsSetID.octoTreeToolSet);
 		ODBdepth = dbDepth;
-		mainCell = new OktreeDataCell(dbDepth, new Vector3(), sectorMinSize);
+		a = sectorMinSize * Math.pow(2, ODBdepth - 1);
+		gameSpace.add(new OktreeDataCell(ODBdepth, new Vector3(), sectorMinSize));
 	}
 	
 	@Override
@@ -27,4 +29,8 @@ public class OktreeDataBase extends IngameObjectsDataBase{
 		
 	}
 	
+	@Override 
+	public GameObject search(String objectID) {
+		return null;
+	}
 }
